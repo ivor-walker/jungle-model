@@ -1,19 +1,19 @@
 public abstract class Square {
 	private Player owner;
 
-	/*
+/**
  * 	Constructor: sets owner
- * 	*/
+*/
 	public Square(Player owner) {
 		this.owner = owner;
 	}
 
-	/*
+/**
  * 	Checks if
  * 	a) square is of type that can be owned (i.e not PlainSquare or WaterSquare)
  * 	b) specified player owns the square
  * 	@param specified player
- * 	*/
+*/
 	public boolean isOwnedBy(Player player) {
 		//Owner for unownable squares is null 
 		return owner != null && owner.equals(player);	
@@ -33,11 +33,8 @@ public abstract class Square {
 }
 
 public class WaterSquare extends Square {
-	
-	/*
- * 	Constructor, passing null as WaterSquares cannot be owned
- * 	*/	
 	public WaterSquare() {
+		//Passing null as WaterSquares cannot be owned by a Player
 		super(null);
 	}
 
@@ -70,10 +67,8 @@ public class Trap extends Square {
 }
 
 public class PlainSquare extends Square {
-	/*
- * 	Constructor, passing null as WaterSquares cannot be owned
- * 	*/
 	public PlainSquare() {
+		//Passing null as WaterSquares cannot be owned by a Player
 		super(null);
 	}
 }
