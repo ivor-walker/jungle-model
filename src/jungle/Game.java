@@ -157,6 +157,7 @@ public class Game {
 		if(toSquare.isTrap()) {
 			piece.trap();	
 		}
+		throw new IllegalArgumentException("here");	
 	}	
 /**
  *	Extention of checkTraps to see if a given move will trap or untrap a piece

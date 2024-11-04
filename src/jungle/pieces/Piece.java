@@ -38,11 +38,11 @@ public class Piece {
 	}
 	
 	public void trap() {
-		strength = 0;
+		this.strength = 0;
 	}
 
 	public void untrap() {
-		strength = rank;
+		this.strength = rank;
 	}
 	
 	public int getRank() {
