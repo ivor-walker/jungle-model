@@ -61,14 +61,14 @@ public abstract class Grid {
  * Getter of element at coordinate in grid
 */
 	private Object getGridLocation(Coordinate targetLocation){
-		return grid[targetlocation.col(), targetLocation.row()];
+		return grid[targetlocation.row()][targetLocation.col()];
 	}
 
 /**
  *	Individual coordinate setter for grid
 */	
 	private void setGridLocation(Coordinate targetLocation, Object targetElement) {
-		grid[targetLocation.col(), targetLocation.row()] = targetElement;	
+		grid[targetLocation.row()][targetLocation.col()] = targetElement;	
 	}
 
 /**
@@ -78,8 +78,8 @@ public abstract class Grid {
  *	@param targetCols 
 */
 	private void setGridLocation(int[] targetRows, int[] targetCols, Supplier<? extends Square> elementSupplier) {
-		for (row: targetRows) {
-			for (col: targetCols) {
+		for (int row: targetRows) {
+			for (int col: targetCols) {
 				Coordinate targetLocation = new Coordinate(row, col);
 				Object targetElement = elementSupplier.get();
 				this.setGridSquare(targetLocation, targetElement);	
@@ -89,13 +89,13 @@ public abstract class Grid {
 /**
  *	Helper methods 
 */	
-	private int[] getSequence(n) {
+	private int[] getSequence(int n) {
 		return java.util.stream.IntStream
 			.rangeClosed(0, n)
 			.toArray();
 	}
 
-	private int[] getSequence(start, n) {
+	private int[] getSequence(int start, int n) {
 		return IntStream
 			.rangeClosed(start, n)
 			.toArray();
@@ -122,7 +122,7 @@ public abstract class SquareBoard extends Grid {
 		this.setGridLocation(WATER_ROWS, WATER_COLS, WaterSquare::new);
 
 		//Set traps and dens for all players
-		for(player: players) {
+		for(Player player: players) {
 			this.addTrapsAndDen(player);
 		}
 	}
@@ -167,7 +167,7 @@ public abstract class SquareBoard extends Grid {
 		//Set a full rectangle of traps
 		this.setGridLocation(
 			() -> new Trap(player), targetCols, targetRows
-		)
+		);
 		//Locate and set den	
 		Coordinate denCoordinate = new Coordinate(denRow, DEN_COL);
 		this.setGridLocation(denCoordinateP0, new Den(player));
@@ -182,8 +182,8 @@ public abstract class SquareBoard extends Grid {
  * Inheritance chain: able to manipulate SquareBoard
 */
 public class Game extends SquareBoard {
-	private int NUM_PLAYERS = 2;
-	private Player[] players = [NUM_PLAYERS];
+	private static int NUM_PLAYERS = 2;
+	private Player[] players = new Player[NUM_PLAYERS];
 	private Grid pieces = new Grid(HEIGHT, WIDTH);
 	private int lastMoved = 1;
 	
@@ -200,33 +200,44 @@ public class Game extends SquareBoard {
 	}
 	
 	//Special cases: rat (rank 1), tiger (rank 6), lion (rank 7)
-	int RAT_RANK = 1;
-	int TIGER_RANK = 6;
-	int LION_RANK = 7;
-	int[] SPECIAL_RANKS = IntStream.of({RAT_RANK, TIGER_RANK, LION_RANK});
-	
+	private static int RAT_RANK = 1;
+	private static int TIGER_RANK = 6;
+	private static int LION_RANK = 7;
+
+	//Set to allow repeated lookups
+	private static Set<Integer> SPECIAL_RANKS = Set.of(RAT_RANK, TIGER_RANK, LION_RANK);
+
+/**
+ * 	addPiece:
+ * 		-get square based on row and col parameters
+ * 		-initialise correct form of piece at square
+ * 		-set it on board
+ * 	@param row
+ * 	@param col
+ * 	@param rank
+ * 	@param playerNumber
+ */	
 	public void addPiece(int row, int col, int rank, int playerNumber) {
-		private Piece piece;
+		Piece piece;
 		//Find square at location
-		private targetLocation = new Coordinate(row, col);	
-		private Square square = board.getGridLocation(targetLocation);
+		targetLocation = new Coordinate(row, col);	
+		Square square = board.getGridLocation(targetLocation);
 		
-		int specialMatch = SPECIAL_RANKS.anyMatch((e) -> e==rank);
-		if(specialMatch == null){
+		if(!SPECIAL_RANKS.contains(rank)){
 			//Base case: not special piece
 			piece = new Piece(owner, square, rank);
-		} else if(specialMatch == RAT_RANK) {
+		} else if(rank == RAT_RANK) {
 			//Power 1 piece: rat	
 			piece = new Rat(owner, square);
-		} else if(specialMatch == TIGER_RANK) {
+		} else if(rank == TIGER_RANK) {
 			//Power 6 piece: tiger
 			piece = new Tiger(owner, square);	
-		} else if(specialMatch == LION_RANK) {
+		} else if(rank == LION_RANK) {
 			//Power 7 piece: lion
 			piece = new Lion(owner, square);
 		}
 
-		pieces.setGridLocation(targetLocation, targetPiece);
+		pieces.setGridLocation(targetLocation, piece);
 		players[playerNumber].gainOnePiece();
 		checkTraps(piece, square);
 	}
@@ -254,7 +265,7 @@ public class Game extends SquareBoard {
 	}
 
 	public Piece getPiece(int row, int col) {
-		private Coordinate targetLocation = new Coordinate(row, col);	
+		Coordinate targetLocation = new Coordinate(row, col);	
 		return pieces.getGridLocation(targetLocation);
 	}
 
@@ -302,7 +313,7 @@ public class Game extends SquareBoard {
  *	@param piece evaluated piece
  *	@param toSquare piece square is currently sitting on 
 */ 
-	private void checkTraps(Piece piece, toSquare) {
+	private void checkTraps(Piece piece, Square toSquare) {
 		if(toSquare.isTrap()) {
 			piece.trap();	
 		}
@@ -324,10 +335,10 @@ public class Game extends SquareBoard {
 	public List<Coordinate> getLegalMoves(int row, int col){
 		//If game is over, no legal moves	
 		if(gameOver) {	
-			return List<>;
+			return Collections.emptyList();	
 		}
 
-		Coordinate startingLocation = new Coordinate(row, col)	
+		Coordinate startingLocation = new Coordinate(row, col);	
 		//Guaranteed all structurally possible moves (i.e not out of bounds)	
 		List<Coordinate> legalMoves = getNextNodes(startingLocation);
 		Piece startingPiece = getPiece(row, col);
@@ -358,7 +369,6 @@ public class Game extends SquareBoard {
 			//If proposed square is water 
 			if(targetSquare.isWater()) {
 				//Get proposed direction & row, and calculate associated leap	
-				[]<Coordinate> row = pieces[startingLocation.row()];	
 				Direction direction = determineDirection(startingLocation, move, isVertical);
 				Coordinate leap = calculatedLeap(startingLocation, direction);
 				leaps.add(leap);	
@@ -441,8 +451,8 @@ public class Game extends SquareBoard {
  *	@param legalMoves all possible legal moves
  *	@return filtered list of legalMoves
 */	
-	private List<Coordinate> filterMoves(startingPiece, startingSquare, legalMoves) {
-		List<Coordinate> excludedMoves = [];
+	private List<Coordinate> filterMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
+		List<Coordinate> excludedMoves;
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
 			Square targetSquare = getSquare(move.row(), move.col());
@@ -463,7 +473,7 @@ public class Game extends SquareBoard {
 				break;
 			}
 			
-			if exclude == true {
+			if(exclude == true) {
 				excludedMoves.add(move);
 			}
 		}		
@@ -472,11 +482,11 @@ public class Game extends SquareBoard {
 		return excludedMoves;
 	}	
 
-	private boolean strongerPieces(targetPiecePresent, targetPieceEnemy, targetPieceDefeatable) {
+	private boolean strongerPieces(boolean targetPiecePresent, boolean targetPieceEnemy, boolean targetPieceDefeatable) {
 		return targetPiecePresent && (targetPieceEnemy && !targetPieceDefeatable);
 	}
 	
-	private boolean alliedPieces(targetPiecePresent, targetPieceAllied) { 
+	private boolean alliedPieces(boolean targetPiecePresent, boolean targetPieceAllied) { 
 		return targetPiecePresent && targetPieceAllied;
 	}
 	
@@ -538,7 +548,7 @@ public class Game extends SquareBoard {
 		}
 	}
 
-	private Player getOwner(piece) {
+	private Player getOwner(Piece piece) {
 		return players
 			.stream(players)
 			.filter(player -> piece.isOwnedBy(player))
@@ -548,11 +558,14 @@ public class Game extends SquareBoard {
 	private boolean gameOver = false;
 	private Player winner;
 	
-	private void checkVictory(winningTarget) {
-		<List>Player alivePlayers = player.anyMatch((e) -> e.hasPieces() == true);
+	private void checkVictory(Square winningTarget) {
+		List<Player> alivePlayers = players.stream()
+			.filter(Player::hasPieces)
+			.collect(Collectors.toList());
+
 		if(winningTarget.isDen() || alivePlayer.size() == 1) {
 			this.endGame();
-			this.setWinner(alivePlayers[0]);				
+			this.setWinner(alivePlayers(0));				
 		}	
 	}
 

@@ -1,9 +1,4 @@
 public class Player {
-	private String name;
-	private int playerNumber;
-	private boolean denCaptured = false;
-	private	int pieceCount; = 0;
-
 /**
  * 	Constructor method: sets name and playerNumber provided by Game
 */
@@ -12,6 +7,7 @@ public class Player {
 		this.playerNumber = playerNumber;
 	}
 
+	private String name;
 /**
  * 	Getter method for a player's name
 */
@@ -19,6 +15,7 @@ public class Player {
 		return this.name;	
 	}
 
+	private int playerNumber;
 /**
  * 	Getter method for a player's number
 */
@@ -33,13 +30,15 @@ public class Player {
 		this.denCaptured = true;	
 	}
 
+	private boolean denCaptured = false;
 /**
  *	Getter method for denCaptured
 */
 	public boolean hasCapturedDen() {
 		return this.denCaptured;
 	}
-
+	
+	private	int pieceCount = 0;
 /**
  *	Check if player has pieces
  *	Note that pieces themselves are owned by Game, so this returns int count only	
@@ -61,6 +60,6 @@ public class Player {
  *	Note that pieces themselves are owned by Game, so this subtracts int count only	
 */ 
 	public void loseOnePiece() {
-		pieceCount--
+		pieceCount--;
 	}
 }

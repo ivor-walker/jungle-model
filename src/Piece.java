@@ -123,7 +123,7 @@ public class Tiger extends Piece {
 public class Lion extends Piece {
 	//Has rank 7
 	public int lionRank = 7;
-	public Tiger(Player owner, Square square) {
+	public Lion(Player owner, Square square) {
 		super(owner, square, lionRank);
 	}
 

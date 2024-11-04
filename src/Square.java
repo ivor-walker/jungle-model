@@ -45,7 +45,7 @@ public class WaterSquare extends Square {
 }
 
 public class Den extends Square {
-	public Den(owner) {
+	public Den(Player owner) {
 		super(owner);
 	}
 
@@ -56,7 +56,7 @@ public class Den extends Square {
 }
 
 public class Trap extends Square {
-        public Trap(owner) {
+        public Trap(Player owner) {
                 super(owner);
         }
 
@@ -72,7 +72,3 @@ public class PlainSquare extends Square {
 		super(null);
 	}
 }
-~                                                                                                                     
-~                                                                                                                     
-~                                                                                                                     
-~                       
