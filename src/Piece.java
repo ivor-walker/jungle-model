@@ -82,59 +82,8 @@ public class Piece {
 	}	
 }
 
-/**
- * Special pieces
-*/
 
-public class Rat extends Piece {
-	//Has rank 1
-	private int ratRank = 1;
-	public Rat(Player owner, Square square){
-		super(owner, square, ratRank);
-	}
 
-	//Can swim	
-	@Override
-	public boolean canSwim() {
-		return true;
-	}
-	
-	//Can defeat elephants	
-	@Override
-	public boolean canDefeat(Piece target) {
-		return super.canDefeat(target) || target.getRank()==8;
-	}
-}
 
-public class Tiger extends Piece {
-	//Has rank 6
-	private int tigerRank = 6;
-	public Tiger(Player owner, Square square) {
-		super(owner, square, tigerRank);
-	}
-	
-	//Can leap horizontally only
-	@Override
-	public boolean canLeapHorizontally() {
-		return true;	
-	}
-}
 
-public class Lion extends Piece {
-	//Has rank 7
-	public int lionRank = 7;
-	public Lion(Player owner, Square square) {
-		super(owner, square, lionRank);
-	}
 
-	//Can leap horizontally and vertically
-	@Override
-	public boolean canLeapHorizontally() {
-		return true;	
-	}
-
-	@Override
-	public boolean canLeapVertically() {
-		return true;	
-	}
-}

@@ -1,181 +1,11 @@
-/**
- * Coordinate: class for expression location in a grid
-*/
-public class Coordinate {
-	private int x;
-	private int y;
-	
-/**
- *	Constructor
- *	@param row x coordinate 
- *	@param column y of coordinate
-*/
-	public Coordinate(int row, int col) {
-		if(row < 0 || col < 0) {
-			throw IndexOutOfBoundsException;	
-		}
-		this.x = row;
-		this.y = col;	
-	}
-
-
-/**
- *	Getter for row (x)
- *	@return row of this coordinate
-*/
-	public int row() {
-		return x;
-	}
-
-/**
- *	Getter for column (y)
- *	@return column of this coordinate
-*/
-	public int col() {
-		return y;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		Coordinate objCoordinate = (Coordinate) obj;
-		return this.row() == obj.row() && this.col() == obj.col();
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(row, col);
-	}
-}
-
-/**
- * Grid: class for storing 2d representations
-*/
-public abstract class Grid {
-	public int HEIGHT = 9;
-	public int WIDTH = 7;
-	private int ALL_ROWS[] = getSequence(WIDTH);
-	private int ALL_COLS[] = getSequence(HEIGHT);
-	private Object[][] grid = Object[HEIGHT][WIDTH];
-	
-/**
- * Getter of element at coordinate in grid
-*/
-	private Object getGridLocation(Coordinate targetLocation){
-		return grid[targetlocation.row()][targetLocation.col()];
-	}
-
-/**
- *	Individual coordinate setter for grid
-*/	
-	private void setGridLocation(Coordinate targetLocation, Object targetElement) {
-		grid[targetLocation.row()][targetLocation.col()] = targetElement;	
-	}
-
-/**
- *	Wrapper for individual coordinate setter to enable large scale setting of grid	
- *	@param squareSupplier factory for generating the requested object 
- *	@param targetRows 
- *	@param targetCols 
-*/
-	private void setGridLocation(int[] targetRows, int[] targetCols, Supplier<? extends Square> elementSupplier) {
-		for (int row: targetRows) {
-			for (int col: targetCols) {
-				Coordinate targetLocation = new Coordinate(row, col);
-				Object targetElement = elementSupplier.get();
-				this.setGridSquare(targetLocation, targetElement);	
-			}
-		}	
-	}
-/**
- *	Helper methods 
-*/	
-	private int[] getSequence(int n) {
-		return java.util.stream.IntStream
-			.rangeClosed(0, n)
-			.toArray();
-	}
-
-	private int[] getSequence(int start, int n) {
-		return IntStream
-			.rangeClosed(start, n)
-			.toArray();
-	}
-}
-
-/**
- * SquareBoard: Grid representation of all the squares
-*/
-public abstract class SquareBoard extends Grid {
-
-/**
- *	Initialises board by setting all squares to plain
- *	Then adding the three types of special squares
-*/
-	public int[] WATER_ROWS = {3, 4, 5};
-	public int[] WATER_COLS = {1, 2, 4, 5};
-	public int DEN_COL = 3;
-	
-	public SquareBoard(Player[] players) {	
-		//Set the whole board to plainSquares
-		this.setGridLocation(ALL_ROWS, ALL_COLS, PlainSquare::new);
-		//Set water squares
-		this.setGridLocation(WATER_ROWS, WATER_COLS, WaterSquare::new);
-
-		//Set traps and dens for all players
-		for(Player player: players) {
-			this.addTrapsAndDen(player);
-		}
-	}
-/**
- *	Set den and traps for a given player	
- *	@param player 
-*/
-	private void addTrapsAndDen(Player player) {
-		//Get column location of home	
-		int COL_TRAP_PADDING = 1;
-		int[] targetCols = getSequence(DEN_COL - TRAP_PADDING, DEN_COL + TRAP_PADDING);
-		
-		//Get player number specific things	
-		int denRow;
-		int ROW_TRAP_PADDING = 1;
-		Coordinate leftCorner;
-		Coordinate rightCorner;
-	
-		//Player 0 case
-		if(player.getPlayerNumber()==0){
-			//Den at top row
-			denRow = 0;
-			targetRows = getSequence(denRow + ROW_TRAP_PADDING);
-			//Corners at bottom left and right	
-			leftCorner = new Coordinate(denRow + ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
-			rightCorner = new Coordinate(denRow + ROW_TRAP_PADDING, DEN_COL + COL_TRAP_PADDING);
-
-
-		//Player 1 case 
-		} else if(player.getPlayerNumber()==1){
-			//Den at bottom row
-			denRow = HEIGHT;
-			targetRows = getSequence(denRow - ROW_TRAP_PADDING);
-			//Corners at top left and right	
-			leftCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
-			rightCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
-		
-		} else {
-			throw IllegalArgumentException();	
-		}
-	
-		//Set a full rectangle of traps
-		this.setGridLocation(
-			() -> new Trap(player), targetCols, targetRows
-		);
-		//Locate and set den	
-		Coordinate denCoordinate = new Coordinate(denRow, DEN_COL);
-		this.setGridLocation(denCoordinateP0, new Den(player));
-		//Remove corners
-		this.setGridLocation(leftCorner, PlainSquare::new);
-		this.setGridLocation(rightCorner, PlainSquare::new);	
-	}
-}
+import java.util.Set;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Game: Grid representation of pieces
@@ -184,18 +14,18 @@ public abstract class SquareBoard extends Grid {
 public class Game extends SquareBoard {
 	private static int NUM_PLAYERS = 2;
 	private Player[] players = new Player[NUM_PLAYERS];
-	private Grid pieces = new Grid(HEIGHT, WIDTH);
+	private Grid<Piece> pieces = new Grid<Piece>();
 	private int lastMoved = 1;
 	
 /**
  *	Constructor for game: creates the board, adds pieces to their starting position
 */
 	public Game(Player p0, Player p1) {
+		//Initialise board with dens
+		super(new Player[]{p0, p1});
 		players[0] = p0;
 		players[1] = p1;	
-		//Initialise board with dens
-		super(players);
-	
+		
 		this.addStartingPieces();		
 	}
 	
@@ -220,13 +50,11 @@ public class Game extends SquareBoard {
 	public void addPiece(int row, int col, int rank, int playerNumber) {
 		Piece piece;
 		//Find square at location
-		targetLocation = new Coordinate(row, col);	
-		Square square = board.getGridLocation(targetLocation);
-		
-		if(!SPECIAL_RANKS.contains(rank)){
-			//Base case: not special piece
-			piece = new Piece(owner, square, rank);
-		} else if(rank == RAT_RANK) {
+		Coordinate targetLocation = new Coordinate(row, col);	
+		Square square = this.getGridLocation(targetLocation);
+		Player owner = players[playerNumber];
+	
+		if(rank == RAT_RANK) {
 			//Power 1 piece: rat	
 			piece = new Rat(owner, square);
 		} else if(rank == TIGER_RANK) {
@@ -235,6 +63,9 @@ public class Game extends SquareBoard {
 		} else if(rank == LION_RANK) {
 			//Power 7 piece: lion
 			piece = new Lion(owner, square);
+		} else {
+			//Base case: not special piece
+			piece = new Piece(owner, square, rank);
 		}
 
 		pieces.setGridLocation(targetLocation, piece);
@@ -272,22 +103,23 @@ public class Game extends SquareBoard {
 	public void move(int fromRow, int fromCol, int toRow, int toCol){
 		//Check if correct player is moving	
 		Piece fromPiece = this.getPiece(fromRow, fromCol);
-		Player movingPlayerNumber = getOwner(fromPiece).playerNumber;
+		int movingPlayerNumber = getOwner(fromPiece).getPlayerNumber();
 		if(movingPlayerNumber != lastMoved){
-			throw IllegalMoveException();
+			throw new IllegalMoveException();
 		}
 
 		//Check if move is legal
 		List<Coordinate> legalMoves = getLegalMoves(fromRow, fromCol);
-		Coordinate toLocation = Coordinate(toRow, toCol);
-		if(!toLocation.contains(legalMoves)) {
-			throw IllegalMoveException();
+		Coordinate toLocation = new Coordinate(toRow, toCol);
+		if(!legalMoves.contains(toLocation)) {
+			throw new IllegalMoveException();
 		}	
 
-		Coordinate fromLocation = Coordinate(fromRow, fromCol);
+		Coordinate fromLocation = new Coordinate(fromRow, fromCol);
+		Square fromSquare = this.getGridLocation(fromLocation);	
 		
 		//Check if capture is occuring	
-		toPiece = this.getPiece(toRow, toCol);
+		Piece toPiece = this.getPiece(toRow, toCol);
 		if(toPiece != null){
 			//Capture
 			toPiece.beCaptured();	
@@ -298,7 +130,7 @@ public class Game extends SquareBoard {
 		pieces.setGridLocation(toLocation, fromPiece);	
 
 		//Move piece's square
-		Square toSquare = board.getGridLocation(toLocation);
+		Square toSquare = this.getGridLocation(toLocation);
 		fromPiece.move(toSquare);
 
 		//End of turn logic
@@ -328,7 +160,7 @@ public class Game extends SquareBoard {
 		checkTraps(piece, toSquare);	
 
 		if(fromSquare.isTrap()) {
-			fromPiece.untrap();	
+			piece.untrap();	
 		}
 	}
 
@@ -342,7 +174,7 @@ public class Game extends SquareBoard {
 		//Guaranteed all structurally possible moves (i.e not out of bounds)	
 		List<Coordinate> legalMoves = getNextNodes(startingLocation);
 		Piece startingPiece = getPiece(row, col);
-		Square startingSquare = board.getGridLocation(startingLocation);
+		Square startingSquare = this.getGridLocation(startingLocation);
 		
 		//Add leaps	
 		if(startingPiece.canLeapHorizontally()) {	
@@ -361,21 +193,21 @@ public class Game extends SquareBoard {
 
 	
 
-	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves) {
+	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
 		List<Coordinate> leaps = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
-			Square targetSquare = this.getSquare(move.row(), move.col());
+			Square targetSquare = this.getGridLocation(move);
  
 			//If proposed square is water 
 			if(targetSquare.isWater()) {
 				//Get proposed direction & row, and calculate associated leap	
 				Direction direction = determineDirection(startingLocation, move, isVertical);
-				Coordinate leap = calculatedLeap(startingLocation, direction);
+				Coordinate leap = getLeaps(startingLocation, direction);
 				leaps.add(leap);	
 			}
 		}
 
-		return horizontalLeaps;			
+		return leaps;			
 	}
 	
 	private enum Direction {
@@ -386,19 +218,19 @@ public class Game extends SquareBoard {
 	    if (isVertical) {
 		if (start.row() + MOVE_RANGE == end.row()) {
 		    return Direction.DOWN;
-		} else if (start.row() - MOVE_RANGE == end.row()) {
+		} else {
 		    return Direction.UP;
 		}
 	    } else {
 		if (start.col() - MOVE_RANGE == end.col()) {
 		    return Direction.LEFT;
-		} else if (start.col() + MOVE_RANGE == end.col()) {
-		    return Direction.RIGHT;
+		} else {
+			return Direction.RIGHT;
 		}
 	    }
 	}
 
-	private Coordinate calculateLeap(Coordinate start, Direction direction) {
+	private Coordinate getLeaps(Coordinate start, Direction direction) {
 		//Initialise search for first non-water square
 		int row = start.row();
 		int col = start.col();
@@ -406,7 +238,7 @@ public class Game extends SquareBoard {
 		switch (direction) {
 			case UP:
 				//Move up until non-water square found 
-            			while (row > 0 && getSquare(row - 1, col).isWater()) {
+            			while (row > 0 && this.getGridLocation(new Coordinate(row - 1, col)).isWater()) {
             			    row--;
             			}
             			//Move one more square up to reach the first non-water square
@@ -415,7 +247,7 @@ public class Game extends SquareBoard {
 	
 			case DOWN:
 				//Move down until non-water square found 
-            			while (row > 0 && getSquare(row + 1, col).isWater()) {
+            			while (row > 0 && this.getGridLocation(new Coordinate(row + 1, col)).isWater()) {
             			    row++;
             			}
             			//Move one more square down to reach the first non-water square
@@ -424,7 +256,7 @@ public class Game extends SquareBoard {
 			
 			case LEFT:
 				//Move left until non-water square found 
-            			while (row > 0 && getSquare(row, col - 1).isWater()) {
+            			while (row > 0 && this.getGridLocation(new Coordinate(row, col - 1)).isWater()) {
             			    row--;
             			}
             			//Move one more square left to reach the first non-water square
@@ -433,7 +265,7 @@ public class Game extends SquareBoard {
 			
 			case RIGHT:
 				//Move right until non-water square found 
-            			while (row > 0 && getSquare(row, col + 1).isWater()) {
+            			while (row > 0 && this.getGridLocation(new Coordinate(row, col + 1)).isWater()) {
             			    row++;
             			}
             			//Move one more square right to reach the first non-water square
@@ -452,19 +284,19 @@ public class Game extends SquareBoard {
  *	@return filtered list of legalMoves
 */	
 	private List<Coordinate> filterMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
-		List<Coordinate> excludedMoves;
+		List<Coordinate> excludedMoves = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
-			Square targetSquare = getSquare(move.row(), move.col());
+			Square targetSquare = this.getGridLocation(move);
 						
 			boolean exclude = false;
 			while(exclude == false){	
 				//Pieces on the square of the attempted move	
 				boolean targetPiecePresent = targetPiece != null;
-				boolean targetPieceEnemy = getOwner(targetPiece).getPlayerNumber == lastMoved;
+				boolean targetPieceEnemy = getOwner(targetPiece).getPlayerNumber() == lastMoved;
 				boolean targetPieceDefeatable = startingPiece.canDefeat(targetPiece);
 				exclude = strongerPieces(targetPiecePresent, targetPieceEnemy, targetPieceDefeatable);
-				exclude = alliedPieces(targetPiecePresent, !targetPieceEnemy, targetPieceDefeatable);
+				exclude = alliedPieces(targetPiecePresent, !targetPieceEnemy);
 				
 				//Swimming
 				boolean attemptingSwim = targetSquare.isWater();	
@@ -549,23 +381,24 @@ public class Game extends SquareBoard {
 	}
 
 	private Player getOwner(Piece piece) {
-		return players
-			.stream(players)
+		return Arrays.stream(players)
 			.filter(player -> piece.isOwnedBy(player))
-			.findFirst();
+			.findFirst()
+			.orElseThrow(() -> new IllegalArgumentException());
 	}
 
 	private boolean gameOver = false;
 	private Player winner;
 	
 	private void checkVictory(Square winningTarget) {
-		List<Player> alivePlayers = players.stream()
+		List<Player> alivePlayers = Arrays
+			.stream(players)
 			.filter(Player::hasPieces)
 			.collect(Collectors.toList());
 
-		if(winningTarget.isDen() || alivePlayer.size() == 1) {
+		if(winningTarget.isDen() || alivePlayers.size() == 1) {
 			this.endGame();
-			this.setWinner(alivePlayers(0));				
+			this.setWinner(alivePlayers.get(0));				
 		}	
 	}
 
@@ -573,7 +406,7 @@ public class Game extends SquareBoard {
 		return gameOver;
 	}
 	
-	private boolean endGame() {
+	private void endGame() {
 		this.gameOver = true;
 	}
 
@@ -586,6 +419,4 @@ public class Game extends SquareBoard {
 	}	
 }
 
-public class IllegalMoveException extends RuntimeException {
 
-}
