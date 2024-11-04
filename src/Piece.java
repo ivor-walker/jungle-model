@@ -34,6 +34,14 @@ public class Piece {
 		return strength;
 	}
 	
+	public void trap() {
+		strength = 0;
+	}
+
+	public void untrap() {
+		strength = rank;
+	}
+	
 	public int getRank() {
 		return rank;
 	}
