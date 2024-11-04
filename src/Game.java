@@ -6,9 +6,9 @@ public class Coordinate {
 	private int y;
 	
 /**
- * 	Constructor
- * 	@param row x coordinate 
- * 	@param column y of coordinate
+ *	Constructor
+ *	@param row x coordinate 
+ *	@param column y of coordinate
 */
 	public Coordinate(int row, int col) {
 		if(row < 0 || col < 0) {
@@ -20,16 +20,16 @@ public class Coordinate {
 
 
 /**
- * 	Getter for row (x)
- * 	@return row of this coordinate
+ *	Getter for row (x)
+ *	@return row of this coordinate
 */
 	public int row() {
 		return x;
 	}
 
 /**
- * 	Getter for column (y)
- * 	@return column of this coordinate
+ *	Getter for column (y)
+ *	@return column of this coordinate
 */
 	public int col() {
 		return y;
@@ -65,17 +65,17 @@ public abstract class Grid {
 	}
 
 /**
- * 	Individual coordinate setter for grid
+ *	Individual coordinate setter for grid
 */	
 	private void setGridLocation(Coordinate targetLocation, Object targetElement) {
 		grid[targetLocation.col(), targetLocation.row()] = targetElement;	
 	}
 
 /**
- * 	Wrapper for individual coordinate setter to enable large scale setting of grid	
- * 	@param squareSupplier factory for generating the requested object 
- * 	@param targetRows 
- * 	@param targetCols 
+ *	Wrapper for individual coordinate setter to enable large scale setting of grid	
+ *	@param squareSupplier factory for generating the requested object 
+ *	@param targetRows 
+ *	@param targetCols 
 */
 	private void setGridLocation(int[] targetRows, int[] targetCols, Supplier<? extends Square> elementSupplier) {
 		for (row: targetRows) {
@@ -87,7 +87,7 @@ public abstract class Grid {
 		}	
 	}
 /**
- * 	Helper methods 
+ *	Helper methods 
 */	
 	private int[] getSequence(n) {
 		return java.util.stream.IntStream
@@ -108,8 +108,8 @@ public abstract class Grid {
 public abstract class SquareBoard extends Grid {
 
 /**
- * 	Initialises board by setting all squares to plain
- * 	Then adding the three types of special squares
+ *	Initialises board by setting all squares to plain
+ *	Then adding the three types of special squares
 */
 	public int[] WATER_ROWS = {3, 4, 5};
 	public int[] WATER_COLS = {1, 2, 4, 5};
@@ -127,8 +127,8 @@ public abstract class SquareBoard extends Grid {
 		}
 	}
 /**
- * 	Set den and traps for a given player	
- * 	@param player 
+ *	Set den and traps for a given player	
+ *	@param player 
 */
 	private void addTrapsAndDen(Player player) {
 		//Get column location of home	
@@ -188,7 +188,7 @@ public class Game extends SquareBoard {
 	private int lastMoved = 1;
 	
 /**
- * 	Constructor for game: creates the board, adds pieces to their starting position
+ *	Constructor for game: creates the board, adds pieces to their starting position
 */
 	public Game(Player p0, Player p1) {
 		players[0] = p0;
@@ -298,9 +298,9 @@ public class Game extends SquareBoard {
 	
 	
 /**
- * 	Helper method to check if piece needs to be trapped
- * 	@param piece evaluated piece
- * 	@param toSquare piece square is currently sitting on 
+ *	Helper method to check if piece needs to be trapped
+ *	@param piece evaluated piece
+ *	@param toSquare piece square is currently sitting on 
 */ 
 	private void checkTraps(Piece piece, toSquare) {
 		if(toSquare.isTrap()) {
@@ -308,10 +308,10 @@ public class Game extends SquareBoard {
 		}
 	}	
 /**
- * 	Extention of checkTraps to see if a given move will trap or untrap a piece
- * 	@param piece
- * 	@param toSquare future square
- * 	@param fromSquare present square 
+ *	Extention of checkTraps to see if a given move will trap or untrap a piece
+ *	@param piece
+ *	@param toSquare future square
+ *	@param fromSquare present square 
 */	
 	private void checkTraps(Piece piece, Square toSquare, Square fromSquare) {
 		checkTraps(piece, toSquare);	
@@ -324,7 +324,7 @@ public class Game extends SquareBoard {
 	public List<Coordinate> getLegalMoves(int row, int col){
 		//If game is over, no legal moves	
 		if(gameOver) {	
-			return [];
+			return List<>;
 		}
 
 		Coordinate startingLocation = new Coordinate(row, col)	
@@ -335,11 +335,11 @@ public class Game extends SquareBoard {
 		
 		//Add leaps	
 		if(startingPiece.canLeapHorizontally()) {	
-			legalMoves.addAll(getHorizontalLeaps(startingPiece, startingLocation, legalMoves)); 
+			legalMoves.addAll(getLeaps(startingPiece, startingLocation, legalMoves, false)); 
 		}
 		
 		if(startingPiece.canLeapVertically()) { 
-			legalMoves.addAll(verticalLeaps(startingPiece, startingLocation, legalMoves)); 
+			legalMoves.addAll(getLeaps(startingPiece, startingLocation, legalMoves, true)); 
 		}
 
 		//Remove rule breaking moves	
@@ -348,93 +348,98 @@ public class Game extends SquareBoard {
 		return legalMoves; 
 	}
 
-	private List<Coordinate> getHorizontalLeaps(startingPiece, startingLocation, legalMoves) {
-		List<Coordinate> horizontalLeaps = [];
+	
+
+	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves) {
+		List<Coordinate> leaps = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Square targetSquare = this.getSquare(move.row(), move.col());
-			boolean isHorizontal = checkifHorizontal(startingLocation, legalMove);	
-			boolean isMoveLeft = isHorizontal && checkIfMoveLeft(startingLocation, legalMove);
-			boolean isMoveRight = isHorizontal && !isMoveLeft; 
  
-			//Check if proposed square is water 
+			//If proposed square is water 
 			if(targetSquare.isWater()) {
+				//Get proposed direction & row, and calculate associated leap	
 				[]<Coordinate> row = pieces[startingLocation.row()];	
-				if(isMoveLeft){
-					horizontalLeaps.add(leapLeft(row));
-				} else if(isMoveRight) {
-					horizontalLeaps.add(rightLeap(row));	
-
-				} else {
-					//Move is not horizontal (neither left nor right)	
-				}	
+				Direction direction = determineDirection(startingLocation, move, isVertical);
+				Coordinate leap = calculatedLeap(startingLocation, direction);
+				leaps.add(leap);	
 			}
 		}
 
 		return horizontalLeaps;			
 	}
 	
-	private int HORIZONTAL_JUMP_SIZE = 3;
+	private enum Direction {
+		UP, DOWN, LEFT, RIGHT
+	}
+
+	private Direction determineDirection(Coordinate start, Coordinate end, boolean isVertical) {
+	    if (isVertical) {
+		if (start.row() + MOVE_RANGE == end.row()) {
+		    return Direction.DOWN;
+		} else if (start.row() - MOVE_RANGE == end.row()) {
+		    return Direction.UP;
+		}
+	    } else {
+		if (start.col() - MOVE_RANGE == end.col()) {
+		    return Direction.LEFT;
+		} else if (start.col() + MOVE_RANGE == end.col()) {
+		    return Direction.RIGHT;
+		}
+	    }
+	}
+
+	private Coordinate calculateLeap(Coordinate start, Direction direction) {
+		//Initialise search for first non-water square
+		int row = start.row();
+		int col = start.col();
 	
-	private boolean checkIfHorizontal(startingLocation, legalMove) {
-		return startingLocation.row() == legalMove.row();	
-	}
-
-	private boolean checkIfMoveLeft(startingLocation, legalMove) {
-		return startingLocation.col() - MOVE_RANGE == legalMove.col(); 
-	}
-
-	private Coordinate leftLeap(startingLocation) {
-		return new Coordinate(startingLocation.row(), startingLocation.col() - HORIZONTAL_JUMP_SIZE);	
-	}
-
-	private Coordinate rightLeap(startingLocation) {
-		return new Coordinate(startingLocation.row(), startingLocation.col() + HORIZONTAL_JUMP_SIZE);	
-	}
-
-	private List<Coordinate> getVerticalLeaps(startingPiece, startingLocation, legalMoves) {
-		List<Coordinate> verticalLeaps = [];
-		for(Coordinate move: legalMoves) {
-			Square targetSquare = this.getSquare(move.row(), move.col());
-			boolean isVertical = !checkifHorizontal(startingLocation, legalMove);	
-			boolean isMoveDown = isVertical && checkifMoveDown(startingLocation, legalMove);
-			boolean isMoveUp = isVertical && !isMoveDown; 
- 
-			//Check if proposed square is water 
-			if(targetSquare.isWater()) {
-				if(isMoveDown){
-					verticalLeaps.add(downLeap(startingLocation, startingCol));
-				} else if(isMoveRight) {
-					verticalLeaps.add(upLeap(startingLocation, startingCol));	
-
-				} else {
-					//Move is not vertical (neither up nor down)	
-				}	
-			}
+		switch (direction) {
+			case UP:
+				//Move up until non-water square found 
+            			while (row > 0 && getSquare(row - 1, col).isWater()) {
+            			    row--;
+            			}
+            			//Move one more square up to reach the first non-water square
+				row--;
+            			break;
+	
+			case DOWN:
+				//Move down until non-water square found 
+            			while (row > 0 && getSquare(row + 1, col).isWater()) {
+            			    row++;
+            			}
+            			//Move one more square down to reach the first non-water square
+				row++;
+            			break;	
+			
+			case LEFT:
+				//Move left until non-water square found 
+            			while (row > 0 && getSquare(row, col - 1).isWater()) {
+            			    row--;
+            			}
+            			//Move one more square left to reach the first non-water square
+				row--;
+            			break;	
+			
+			case RIGHT:
+				//Move right until non-water square found 
+            			while (row > 0 && getSquare(row, col + 1).isWater()) {
+            			    row++;
+            			}
+            			//Move one more square right to reach the first non-water square
+				row++;
+            			break;
 		}
 
-		return verticalLeaps;			
+		return new Coordinate(row, col);
 	}
-	
-	//TODO better solution: check for next blank square in row/col
-	private int VERTICAL_JUMP_SIZE = 4;
-	private boolean checkIfMoveDown(startingLocation, legalMove) {
-		return startingLocation.row() - MOVE_RANGE == legalMove.row(); 
-	}
-
-	private Coordinate downLeap(startingLocation) {
-		return new Coordinate(startingLocation.row() - VERTICAL_JUMP_SIZE, startingLocation.col());	
-	}
-
-	private Coordinate upLeap(startingLocation) {
-		return new Coordinate(startingLocation.row() + VERTICAL_JUMP_SIZE, startingLocation.col());	
-	}	
 
 /**
- * 	Excludes illegal moves from legalMoves
- * 	@param startingPiece piece to be moved
- * 	@param startingSquare square where piece is to be moved from 
- * 	@param legalMoves all possible legal moves
- * 	@return filtered list of legalMoves
+ *	Excludes illegal moves from legalMoves
+ *	@param startingPiece piece to be moved
+ *	@param startingSquare square where piece is to be moved from 
+ *	@param legalMoves all possible legal moves
+ *	@return filtered list of legalMoves
 */	
 	private List<Coordinate> filterMoves(startingPiece, startingSquare, legalMoves) {
 		List<Coordinate> excludedMoves = [];
@@ -476,8 +481,8 @@ public class Game extends SquareBoard {
 	}
 	
 /**
- * 	Gets all legal moves from a given point	
- * 	This is essentially a graph traversal problem
+ *	Gets all legal moves from a given point	
+ *	This is essentially a graph traversal problem
 */
 	private int MOVE_RANGE = 1;
 	private int STEP_SIZE = 1;
