@@ -1,3 +1,10 @@
+package jungle;
+import jungle.squares.Square;
+import jungle.squares.PlainSquare;
+import jungle.squares.Trap;
+import jungle.squares.WaterSquare;
+import jungle.squares.Den;
+
 /**
  * SquareBoard: Grid representation of all the squares
 */

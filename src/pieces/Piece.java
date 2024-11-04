@@ -1,3 +1,6 @@
+package jungle.pieces;
+import jungle.Player;
+import jungle.squares.Square;
 /**
  * Regular piece
 */

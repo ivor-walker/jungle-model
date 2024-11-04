@@ -1,4 +1,4 @@
-import java.util.stream.IntStream;
+package jungle;import java.util.stream.IntStream;
 import java.util.function.Supplier;
 
 

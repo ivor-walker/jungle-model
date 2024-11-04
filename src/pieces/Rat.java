@@ -1,3 +1,7 @@
+package jungle.pieces;
+import jungle.Player;
+import jungle.squares.Square;
+
 /**
  * Special pieces: Rat
  * Behaviours: rank 1, can swim, can defeat elephants

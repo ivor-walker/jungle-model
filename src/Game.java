@@ -1,3 +1,11 @@
+package jungle;
+import jungle.pieces.Piece;
+import jungle.squares.Square;
+import jungle.Player;
+import jungle.pieces.Rat;
+import jungle.pieces.Tiger;
+import jungle.pieces.Lion;
+
 import java.util.Set;
 import java.util.List;
 import java.util.function.Supplier;
@@ -9,26 +17,26 @@ import java.util.stream.Collectors;
 
 /**
  * Game: Grid representation of pieces
- * Inheritance chain: able to manipulate SquareBoard
 */
-public class Game extends SquareBoard {
+public class Game {
 	private static int NUM_PLAYERS = 2;
 	private Player[] players = new Player[NUM_PLAYERS];
 	private Grid<Piece> pieces = new Grid<Piece>();
+	private SquareBoard board;
 	private int lastMoved = 1;
-	
 /**
  *	Constructor for game: creates the board, adds pieces to their starting position
 */
 	public Game(Player p0, Player p1) {
 		//Initialise board with dens
-		super(new Player[]{p0, p1});
 		players[0] = p0;
-		players[1] = p1;	
-		
+		players[1] = p1;
+
+		board = new SquareBoard(players);	
 		this.addStartingPieces();		
 	}
 	
+
 	//Special cases: rat (rank 1), tiger (rank 6), lion (rank 7)
 	private static int RAT_RANK = 1;
 	private static int TIGER_RANK = 6;
@@ -51,7 +59,7 @@ public class Game extends SquareBoard {
 		Piece piece;
 		//Find square at location
 		Coordinate targetLocation = new Coordinate(row, col);	
-		Square square = this.getGridLocation(targetLocation);
+		Square square = board.getGridLocation(targetLocation);
 		Player owner = players[playerNumber];
 	
 		if(rank == RAT_RANK) {
@@ -116,7 +124,7 @@ public class Game extends SquareBoard {
 		}	
 
 		Coordinate fromLocation = new Coordinate(fromRow, fromCol);
-		Square fromSquare = this.getGridLocation(fromLocation);	
+		Square fromSquare = board.getGridLocation(fromLocation);	
 		
 		//Check if capture is occuring	
 		Piece toPiece = this.getPiece(toRow, toCol);
@@ -130,7 +138,7 @@ public class Game extends SquareBoard {
 		pieces.setGridLocation(toLocation, fromPiece);	
 
 		//Move piece's square
-		Square toSquare = this.getGridLocation(toLocation);
+		Square toSquare = board.getGridLocation(toLocation);
 		fromPiece.move(toSquare);
 
 		//End of turn logic
@@ -174,7 +182,7 @@ public class Game extends SquareBoard {
 		//Guaranteed all structurally possible moves (i.e not out of bounds)	
 		List<Coordinate> legalMoves = getNextNodes(startingLocation);
 		Piece startingPiece = getPiece(row, col);
-		Square startingSquare = this.getGridLocation(startingLocation);
+		Square startingSquare = board.getGridLocation(startingLocation);
 		
 		//Add leaps	
 		if(startingPiece.canLeapHorizontally()) {	
@@ -196,7 +204,7 @@ public class Game extends SquareBoard {
 	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
 		List<Coordinate> leaps = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
-			Square targetSquare = this.getGridLocation(move);
+			Square targetSquare = board.getGridLocation(move);
  
 			//If proposed square is water 
 			if(targetSquare.isWater()) {
@@ -238,7 +246,7 @@ public class Game extends SquareBoard {
 		switch (direction) {
 			case UP:
 				//Move up until non-water square found 
-            			while (row > 0 && this.getGridLocation(new Coordinate(row - 1, col)).isWater()) {
+            			while (row > 0 && board.getGridLocation(new Coordinate(row - 1, col)).isWater()) {
             			    row--;
             			}
             			//Move one more square up to reach the first non-water square
@@ -247,7 +255,7 @@ public class Game extends SquareBoard {
 	
 			case DOWN:
 				//Move down until non-water square found 
-            			while (row > 0 && this.getGridLocation(new Coordinate(row + 1, col)).isWater()) {
+            			while (row > 0 && board.getGridLocation(new Coordinate(row + 1, col)).isWater()) {
             			    row++;
             			}
             			//Move one more square down to reach the first non-water square
@@ -256,7 +264,7 @@ public class Game extends SquareBoard {
 			
 			case LEFT:
 				//Move left until non-water square found 
-            			while (row > 0 && this.getGridLocation(new Coordinate(row, col - 1)).isWater()) {
+            			while (row > 0 && board.getGridLocation(new Coordinate(row, col - 1)).isWater()) {
             			    row--;
             			}
             			//Move one more square left to reach the first non-water square
@@ -265,7 +273,7 @@ public class Game extends SquareBoard {
 			
 			case RIGHT:
 				//Move right until non-water square found 
-            			while (row > 0 && this.getGridLocation(new Coordinate(row, col + 1)).isWater()) {
+            			while (row > 0 && board.getGridLocation(new Coordinate(row, col + 1)).isWater()) {
             			    row++;
             			}
             			//Move one more square right to reach the first non-water square
@@ -287,7 +295,7 @@ public class Game extends SquareBoard {
 		List<Coordinate> excludedMoves = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
-			Square targetSquare = this.getGridLocation(move);
+			Square targetSquare = board.getGridLocation(move);
 						
 			boolean exclude = false;
 			while(exclude == false){	

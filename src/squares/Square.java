@@ -1,3 +1,6 @@
+package jungle.squares;
+import jungle.Player;
+
 public abstract class Square {
 	private Player owner;
 

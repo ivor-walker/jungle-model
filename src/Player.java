@@ -1,3 +1,5 @@
+package jungle;
+
 public class Player {
 /**
  * 	Constructor method: sets name and playerNumber provided by Game

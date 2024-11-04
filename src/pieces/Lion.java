@@ -1,3 +1,7 @@
+package jungle.pieces;
+import jungle.Player;
+import jungle.squares.Square;
+
 public class Lion extends Piece {
 	//Has rank 7
 	private static int LION_RANK = 7;
