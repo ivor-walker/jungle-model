@@ -16,7 +16,6 @@ public class Coordinate {
 		}
 		this.x = row;
 		this.y = col;	
-		
 	}
 
 
@@ -161,9 +160,8 @@ public abstract class SquareBoard extends Grid {
 			leftCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
 			rightCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
 		
-		//TODO exception if not player 0 or 1
 		} else {
-		
+			throw IllegalArgumentException();	
 		}
 	
 		//Set a full rectangle of traps
