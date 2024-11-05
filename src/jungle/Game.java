@@ -37,7 +37,6 @@ public class Game {
 		players[1] = p1;
 
 		board = new SquareBoard(players, HEIGHT, WIDTH);	
-		this.addStartingPieces();		
 	}
 	
 
@@ -82,6 +81,8 @@ public class Game {
 		//Set new piece on grid	
 		Coordinate targetLocation = new Coordinate(row, col);
 		pieces.setGridLocation(targetLocation, piece);
+
+		checkVictory();
 	}
 
 	public void addStartingPieces() {
@@ -150,40 +151,48 @@ public class Game {
 	}
 	
 	public List<Coordinate> getLegalMoves(int row, int col){
-		//If game is over, no legal moves	
-		if(this.gameOver) {	
-			return Collections.emptyList();	
-		}
+		List<Coordinate> legalMoves = new ArrayList<>();
 		
+		//Situations in which no legal moves apply:
+		//Game is over
+		if(this.gameOver) {	
+			return legalMoves;	
+		}
+	
+		//No piece at target	
 		Piece startingPiece = this.getPiece(row, col);
 		if(startingPiece == null) {
-			return Collections.emptyList();
+			return legalMoves;	
 		}
-
+		
+		//Incorrect player moving
 		int movingPlayerNumber = startingPiece.getOwner().getPlayerNumber();
 		if(movingPlayerNumber == lastMoved){
-			return Collections.emptyList();
+			return legalMoves;	
 		}
-
+		
 		Coordinate startingLocation = new Coordinate(row, col);	
-		//Guaranteed all structurally possible moves 		
-		List<Coordinate> legalMoves = getNextNodes(startingLocation);
 		Square startingSquare = this.getSquare(row, col);
 		
+		//Add all structurally possible moves 		
+		List<Coordinate> startingMoves = getNextNodes(startingLocation);
+		legalMoves.addAll(startingMoves);
+	
 		//Add leaps	
+		List<Coordinate> leaps = new ArrayList<>();	
 		if(startingPiece.canLeapHorizontally()) {	
-			legalMoves.addAll(getLeaps(startingPiece, startingLocation, legalMoves, false)); 
+			leaps.addAll(getLeaps(startingPiece, startingLocation, legalMoves, false)); 
 		}
 		
 		if(startingPiece.canLeapVertically()) { 
-			legalMoves.addAll(getLeaps(startingPiece, startingLocation, legalMoves, true)); 
+			leaps.addAll(getLeaps(startingPiece, startingLocation, legalMoves, true));
 		}
-		
-		List<Coordinate> illegalMoves = this.getIllegalMoves(startingPiece, startingSquare, legalMoves);
-
+		legalMoves.addAll(leaps);		
+			
 		//Remove rule breaking moves
+		List<Coordinate> illegalMoves = this.getIllegalMoves(startingPiece, startingSquare, legalMoves);
 		legalMoves.removeAll(illegalMoves);
-		
+			
 		return legalMoves; 
 	}
 	
@@ -196,32 +205,39 @@ public class Game {
  *	@return all illegal moves
 */	
 	private List<Coordinate> getIllegalMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
-		List<Coordinate> excludedMoves = new ArrayList<>();
+		Set<Coordinate> excludedMoves = new HashSet<>();
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
 			Square targetSquare = this.getSquare(move.row(), move.col());
 						
 			boolean exclude = false;
-			while(exclude == false){	
-				//Pieces on the square of the attempted move	
-				boolean targetPiecePresent = targetPiece != null;
-				boolean targetPieceEnemy = targetPiecePresent && targetPiece.getOwner().getPlayerNumber() == lastMoved;
-				exclude = targetPieceEnemy && !startingPiece.canDefeat(targetPiece);
-				exclude = !targetPieceEnemy; 
-				
-				//Swimming
-				boolean attemptingSwim = targetSquare.isWater();	
-				boolean canSwim = startingPiece.canSwim();
-				exclude = attemptingSwim && !canSwim;
-				break;
-			}
 			
-			if(exclude == true) {
+			//Pieces on the square of the attempted move	
+			boolean targetPiecePresent = targetPiece != null;
+			if(targetPiecePresent) {
+				boolean isEnemyPiece = (targetPiece.getOwner().getPlayerNumber() == lastMoved);
+
+				if(!isEnemyPiece) {
+					exclude = true;
+				} else if(isEnemyPiece && !startingPiece.canDefeat(targetPiece)) {
+					exclude = true;
+				}
+			}
+
+			//Swimming
+			boolean attemptingSwim = targetSquare.isWater();	
+			boolean canSwim = startingPiece.canSwim();
+				
+			if(attemptingSwim && !canSwim) {
+				exclude = true;	
+			}
+
+			if(exclude) {
 				excludedMoves.add(move);
 			}
 		}		
 		
-		return excludedMoves;
+		return new ArrayList<>(excludedMoves);
 	}	
 	
 /**
@@ -302,22 +318,25 @@ public class Game {
 
 	}
 /**
- * Leaps
+ * Leaps: if a water square is passed as a possible legal move, add an appropriate horizontal or vertical leap
 */
 	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
 		List<Coordinate> leaps = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Square targetSquare = this.getSquare(move.row(), move.col());
- 
-			//If proposed square is water 
-			if(targetSquare.isWater()) {
-				//Get proposed direction & row, and calculate associated leap	
+			Piece targetPiece = this.getPiece(move.row(), move.col()); 
+			//If proposed square is water and not blocked by another piece 
+			if(targetSquare.isWater() && targetPiece == null) {
+				//Get proposed direction	
 				Direction direction = determineDirection(startingLocation, move, isVertical);
-				Coordinate leap = getLeaps(startingLocation, direction);
-				leaps.add(leap);	
+				//If direction proposed is invalid for horizontal/vertical
+				if(direction != null){
+					Coordinate leap = getLeaps(startingLocation, direction);
+					leaps.add(leap);
+				}	
 			}
 		}
-
+		
 		return leaps;			
 	}
 	
@@ -327,17 +346,29 @@ public class Game {
 
 	private Direction determineDirection(Coordinate start, Coordinate end, boolean isVertical) {
 	    if (isVertical) {
+	
 		if (start.row() + MOVE_RANGE == end.row()) {
 		    return Direction.DOWN;
-		} else {
+
+		} else if (start.row() - MOVE_RANGE == end.row()){
 		    return Direction.UP;
-		}
-	    } else {
-		if (start.col() - MOVE_RANGE == end.col()) {
-		    return Direction.LEFT;
+
 		} else {
-			return Direction.RIGHT;
+			return null;
 		}
+
+	    } else {
+
+		if (start.col() - MOVE_RANGE == end.col()) {
+		    	return Direction.LEFT;
+
+		} else if(start.col() + MOVE_RANGE == end.col()){
+			return Direction.RIGHT;
+
+		} else {
+			return null;
+		}
+
 	    }
 	}
 
@@ -359,7 +390,7 @@ public class Game {
 	
 			case DOWN:
 				//Move down until non-water square found 
-            			while (row > 0 && this.getSquare(row + 1, col).isWater()) {
+            			while (row < this.HEIGHT - 1 && this.getSquare(row + 1, col).isWater()) {
             			    row++;
             			}
             			//Move one more square down to reach the first non-water square
@@ -368,20 +399,20 @@ public class Game {
 			
 			case LEFT:
 				//Move left until non-water square found 
-            			while (row > 0 && this.getSquare(row, col - 1).isWater()) {
-            			    row--;
+            			while (col > 0 && this.getSquare(row, col - 1).isWater()) {
+            			    col--;
             			}
             			//Move one more square left to reach the first non-water square
-				row--;
+				col--;
             			break;	
 			
 			case RIGHT:
 				//Move right until non-water square found 
-            			while (row > 0 && this.getSquare(row, col + 1).isWater()) {
-            			    row++;
+            			while (col < this.HEIGHT && this.getSquare(row, col + 1).isWater()) {
+            			    col++;
             			}
             			//Move one more square right to reach the first non-water square
-				row++;
+				col++;
             			break;
 		}
 
@@ -408,18 +439,24 @@ public class Game {
 			.stream(players)
 			.filter(Player::hasPieces)
 			.collect(Collectors.toList());
-		
+	
+		//Get all players who have captured a den	
 		List<Player> capturedDens = Arrays
 			.stream(players)
 			.filter(Player::hasCapturedDen)
 			.collect(Collectors.toList());
-	
-		if(capturedDens.size() == 1) {
-			//End the game and declare remaining player winner
+		
+
+		//End the game and declare remaining player winner
+		if(alivePlayers.size() == 1) {
 			this.setWinner(alivePlayers.get(0));				
 		} else if(capturedDens.size() == 1) {
 			this.setWinner(capturedDens.get(0));				
-		}	
+		//or restart game	
+		} else if(this.isGameOver() == true) {
+			this.restartGame();			
+		}
+		//or do nothing	
 	}
 /**
  * 	Getter and setters regarding victory conditions
@@ -427,9 +464,10 @@ public class Game {
 	public boolean isGameOver() {
 		return gameOver;
 	}
-	
-	private void endGame() {
-		this.gameOver = true;
+
+	private void restartGame() {
+		this.gameOver = false;
+		this.winner = null;
 	}
 
 	public Player getWinner() {
@@ -437,7 +475,7 @@ public class Game {
 	}
 
 	private void setWinner(Player player) {
-		this.endGame();
+		this.gameOver = true;
 		this.winner = player;	
 	}	
 }

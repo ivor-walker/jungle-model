@@ -62,97 +62,35 @@ Testing CS5001 P2 Jungle (OOP) - All Tests
       └─ testNonOwner() ✔
 ---
 
-* INFO - basic/Test5_SimpleGame/info : fail
+* INFO - basic/Test5_SimpleGame/info : pass
 --- submission output ---
 ╷
 └─ JUnit Jupiter ✔
    └─ SimpleGameTest ✔
       ├─ testNotWater() ✔
       ├─ testGetBadSquare() ✔
-      ├─ testEnterDenWinGame() ✘ jungle.IllegalMoveException
+      ├─ testEnterDenWinGame() ✔
       ├─ testDen() ✔
-      ├─ testNoLegalMoves() ✘ 1 0
+      ├─ testNoLegalMoves() ✔
       ├─ testWater() ✔
       ├─ testWidth() ✔
       ├─ testTrap() ✔
       ├─ testGetPlayerBad() ✔
       ├─ testAddPiece() ✔
       ├─ testLegalMovesBadSquare() ✔
-      ├─ testTigerVerticalJump() ✘ 1 0
+      ├─ testTigerVerticalJump() ✔
       ├─ testAddPieceOccupied() ✔
       ├─ testMoveFromBadSquare() ✔
-      ├─ testNoPiecesLoseGame() ✘ expected: <jungle.Player@f0c8a99> but was: <null>
-      ├─ testLionVerticalJump() ✘ 1 0
-      ├─ testTigerHorizontalJump() ✘ 1 0
+      ├─ testNoPiecesLoseGame() ✔
+      ├─ testLionVerticalJump() ✔
+      ├─ testTigerHorizontalJump() ✔
       ├─ testExists() ✔
       ├─ testGetPlayer() ✔
       ├─ testHeight() ✔
       ├─ testDenOwner() ✔
       ├─ testGetBadSquareNegative() ✔
       ├─ testNoPiece() ✔
-      └─ testMoveLegal() ✘ jungle.IllegalMoveException
-Failures (7):
-  JUnit Jupiter:SimpleGameTest:testEnterDenWinGame()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testEnterDenWinGame', methodParameterTypes = '']
-    => jungle.IllegalMoveException
-       jungle.Game.move(Game.java:124)
-       SimpleGameTest.testEnterDenWinGame(SimpleGameTest.java:143)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testNoLegalMoves()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testNoLegalMoves', methodParameterTypes = '']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       SimpleGameTest.testNoLegalMoves(SimpleGameTest.java:113)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testTigerVerticalJump()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testTigerVerticalJump', methodParameterTypes = '']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       SimpleGameTest.testTigerVerticalJump(SimpleGameTest.java:167)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testNoPiecesLoseGame()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testNoPiecesLoseGame', methodParameterTypes = '']
-    => org.opentest4j.AssertionFailedError: expected: <jungle.Player@f0c8a99> but was: <null>
-       org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-       org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-       org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-       org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-       org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
-       org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
-       SimpleGameTest.testNoPiecesLoseGame(SimpleGameTest.java:151)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testLionVerticalJump()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testLionVerticalJump', methodParameterTypes = '']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       SimpleGameTest.testLionVerticalJump(SimpleGameTest.java:176)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testTigerHorizontalJump()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testTigerHorizontalJump', methodParameterTypes = '']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       SimpleGameTest.testTigerHorizontalJump(SimpleGameTest.java:159)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:SimpleGameTest:testMoveLegal()
-    MethodSource [className = 'SimpleGameTest', methodName = 'testMoveLegal', methodParameterTypes = '']
-    => jungle.IllegalMoveException
-       jungle.Game.move(Game.java:124)
-       SimpleGameTest.testMoveLegal(SimpleGameTest.java:133)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+      └─ testMoveLegal() ✔
 --- submission stderr output ---
 Note: ./jungle/Grid.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
@@ -164,153 +102,38 @@ Note: Recompile with -Xlint:unchecked for details.
 └─ JUnit Jupiter ✔
    └─ FullGameTest ✔
       ├─ testGetLegalMovesStart(int, int, int) ✔
-      │  ├─ [1] 0, 0, 2 ✘ 1 0
-      │  ├─ [2] 1, 1, 4 ✘ 1 0
-      │  ├─ [3] 2, 6, 3 ✘ 1 0
-      │  ├─ [4] 2, 4, 3 ✘ 1 0
-      │  ├─ [5] 7, 1, 0 ✘ 1 0
-      │  └─ [6] 2, 1, 0 ✘ Cannot invoke "jungle.pieces.Piece.canLeapHorizontally()" because "<local5>" is null
+      │  ├─ [1] 0, 0, 2 ✔
+      │  ├─ [2] 1, 1, 4 ✔
+      │  ├─ [3] 2, 6, 3 ✔
+      │  ├─ [4] 2, 4, 3 ✔
+      │  ├─ [5] 7, 1, 0 ✔
+      │  └─ [6] 2, 1, 0 ✔
       ├─ testPlacedDog() ✔
       ├─ testPlacedRat() ✔
       ├─ testNoWinnerAtStart() ✔
-      ├─ testLegalMove() ✘ jungle.IllegalMoveException
+      ├─ testLegalMove() ✔
       ├─ testPlacedLion() ✔
       ├─ testEmptySquare() ✔
-      ├─ testPiecePlacedStrength() ✘ expected: <4> but was: <5>
+      ├─ testPiecePlacedStrength() ✔
       ├─ testIllegalMoveException(int, int, int, int) ✔
       │  ├─ [1] 2, 4, 3, 4 ✔
       │  ├─ [2] 2, 6, 2, 7 ✔
       │  ├─ [3] 2, 0, 4, 0 ✔
       │  ├─ [4] 2, 2, 3, 3 ✔
-      │  └─ [5] 6, 4, 6, 5 ✘ Unexpected exception type thrown, expected: <jungle.IllegalMoveException> but was: <java.lang.IllegalArgumentException>
+      │  └─ [5] 6, 4, 6, 5 ✔
       ├─ testPiecePlacedOwner() ✔
-      └─ testFullGame() ✘ jungle.IllegalMoveException
-Failures (10):
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[1] 0, 0, 2
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[2] 1, 1, 4
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[3] 2, 6, 3
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[4] 2, 4, 3
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[5] 7, 1, 0
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testGetLegalMovesStart(int, int, int):[6] 2, 1, 0
-    MethodSource [className = 'FullGameTest', methodName = 'testGetLegalMovesStart', methodParameterTypes = 'int, int, int']
-    => java.lang.NullPointerException: Cannot invoke "jungle.pieces.Piece.canLeapHorizontally()" because "<local5>" is null
-       jungle.Game.getLegalMoves(Game.java:169)
-       FullGameTest.testGetLegalMovesStart(FullGameTest.java:97)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-       java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
-       [...]
-  JUnit Jupiter:FullGameTest:testLegalMove()
-    MethodSource [className = 'FullGameTest', methodName = 'testLegalMove', methodParameterTypes = '']
-    => jungle.IllegalMoveException
-       jungle.Game.move(Game.java:124)
-       FullGameTest.testLegalMove(FullGameTest.java:81)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:FullGameTest:testPiecePlacedStrength()
-    MethodSource [className = 'FullGameTest', methodName = 'testPiecePlacedStrength', methodParameterTypes = '']
-    => org.opentest4j.AssertionFailedError: expected: <4> but was: <5>
+      └─ testFullGame() ✘ expected: <2> but was: <3>
+Failures (1):
+  JUnit Jupiter:FullGameTest:testFullGame()
+    MethodSource [className = 'FullGameTest', methodName = 'testFullGame', methodParameterTypes = '']
+    => org.opentest4j.AssertionFailedError: expected: <2> but was: <3>
        org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
        org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
        org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
        org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
        org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
        org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
-       FullGameTest.testPiecePlacedStrength(FullGameTest.java:33)
-       java.base/java.lang.reflect.Method.invoke(Method.java:580)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-       java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-  JUnit Jupiter:FullGameTest:testIllegalMoveException(int, int, int, int):[5] 6, 4, 6, 5
-    MethodSource [className = 'FullGameTest', methodName = 'testIllegalMoveException', methodParameterTypes = 'int, int, int, int']
-    => org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <jungle.IllegalMoveException> but was: <java.lang.IllegalArgumentException>
-       org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-       org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
-       org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
-       org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
-       FullGameTest.testIllegalMoveException(FullGameTest.java:75)
-       [...]
-     Caused by: java.lang.IllegalArgumentException: 1 0
-       jungle.Game.getLegalMoves(Game.java:181)
-       jungle.Game.move(Game.java:129)
-       FullGameTest.lambda$testIllegalMoveException$0(FullGameTest.java:76)
-       org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
-       [...]
-  JUnit Jupiter:FullGameTest:testFullGame()
-    MethodSource [className = 'FullGameTest', methodName = 'testFullGame', methodParameterTypes = '']
-    => jungle.IllegalMoveException
-       jungle.Game.move(Game.java:124)
-       FullGameTest.testFullGame(FullGameTest.java:108)
+       FullGameTest.testFullGame(FullGameTest.java:115)
        java.base/java.lang.reflect.Method.invoke(Method.java:580)
        java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
        java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
@@ -326,37 +149,28 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:2:1: Redundant import from the java.lang package - java.lang.IndexOutOfBoundsException. [RedundantImport]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:5: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:9:1: File contains tab characters (this is the first instance). [FileTabCharacter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:11:28: Name 'HEIGHT_LIMIT' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:11:43: '9' is a magic number. [MagicNumber]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:12: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:12:28: Name 'WIDTH_LIMIT' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:13: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:15: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:16:9: Unused @param tag for 'column'. [JavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:19:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:19:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:19:84: '{' is not preceded with whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:20: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:23: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:26: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:34: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:41: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:45: Line is longer than 90 characters (found 94). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:47: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:23: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:31: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:38: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:42: Line is longer than 90 characters (found 94). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Coordinate.java:44: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:4:1: Redundant import from the same package - jungle.Player. [RedundantImport]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:18: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:22:1: File contains tab characters (this is the first instance). [FileTabCharacter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:22:28: Name 'NUM_PLAYERS' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:24:9: Missing a Javadoc comment. [JavadocVariable]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:24:27: Variable 'HEIGHT' must be private and have accessor methods. [VisibilityModifier]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:24:27: Name 'HEIGHT' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:24:36: '9' is a magic number. [MagicNumber]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:19: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:23:1: File contains tab characters (this is the first instance). [FileTabCharacter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:23:28: Name 'NUM_PLAYERS' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:9: Missing a Javadoc comment. [JavadocVariable]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:27: Variable 'WIDTH' must be private and have accessor methods. [VisibilityModifier]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:27: Name 'WIDTH' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:30: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:38: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:27: Variable 'HEIGHT' must be private and have accessor methods. [VisibilityModifier]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:27: Name 'HEIGHT' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:25:36: '9' is a magic number. [MagicNumber]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:26: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:26:9: Missing a Javadoc comment. [JavadocVariable]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:26:27: Variable 'WIDTH' must be private and have accessor methods. [VisibilityModifier]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:26:27: Name 'WIDTH' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:31: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:39: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:41: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:44:28: Name 'RAT_RANK' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
@@ -377,9 +191,7 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:73:24: 'if' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:80: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:81: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:86:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:88: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:89: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:88:9: Missing a Javadoc comment. [MissingJavadocMethod]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:90: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:91: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:92: Line has trailing spaces or tabs. [RegexpSingleline]
@@ -387,182 +199,205 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:94: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:95: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:96: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:108:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:109: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:113:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:114: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:118:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:118:73: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:119: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:97: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:98: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:110:9: Missing a Javadoc comment. [MissingJavadocMethod]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:111: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:115:9: Missing a Javadoc comment. [MissingJavadocMethod]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:116: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:120:9: Missing a Javadoc comment. [MissingJavadocMethod]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:120:73: '{' is not preceded with whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:121: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:123:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:123:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:123:52: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:126: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:130:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:130:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:123: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:127:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:127:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:129: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:131: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:132: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:134: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:135: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:136: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:138:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:138:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:138:36: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:140: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:145: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:133: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:135:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:135:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:135:36: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:137: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:142: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:152: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:153:9: Missing a Javadoc comment. [MissingJavadocMethod]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:153:64: '{' is not preceded with whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:155: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:156:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:156:64: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:157: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:158: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:158:17: 'if' is not followed by whitespace. [WhitespaceAfter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:158:17: 'if' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:159: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:161: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:162: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:163: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:164:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:164:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:165: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:167: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:168: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:169: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:169:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:169:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:170: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:170: Line is longer than 90 characters (found 105). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:172: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:170:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:170:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:170:52: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:171: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:173: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:173:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:173:17: 'if' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:174: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:174: Line is longer than 90 characters (found 104). [LineLength]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:176: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:177: Line is longer than 90 characters (found 112). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:180:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:180:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:180:21: '==' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:180:21: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:181: Line is longer than 90 characters (found 106). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:177: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:180: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:181: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:182: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:183: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:183:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:183:17: 'if' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:184: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:185: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:187: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:184: Line is longer than 90 characters (found 100). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:186: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:187: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:187:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:187:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:188: Line is longer than 90 characters (found 98). [LineLength]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:190: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:193: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:194: Line is longer than 90 characters (found 123). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:196:17: 'for' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:196:17: 'for' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:191: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:193: Line is longer than 90 characters (found 112). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:195: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:196: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:198: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:199: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:201: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:201:25: 'while' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:201:25: 'while' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:201:39: Expression can be simplified. [SimplifyBooleanExpression]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:201:48: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:202: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:204: Line is longer than 90 characters (found 112). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:205: Line is longer than 90 characters (found 101). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:206: Line is longer than 90 characters (found 118). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:207: Line is longer than 90 characters (found 94). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:208: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:210: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:200: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:203: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:206: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:207: Line is longer than 90 characters (found 123). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:209:17: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:209:17: 'for' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:212: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:214: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:215: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:216:25: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:216:25: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:216:36: Expression can be simplified. [SimplifyBooleanExpression]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:219: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:220: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:222: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:224: Line is longer than 90 characters (found 125). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:227: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:217:25: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:217:25: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:218: Line is longer than 90 characters (found 111). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:220:33: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:220:33: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:222: Line is longer than 90 characters (found 98). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:222:40: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:222:40: 'if' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:228: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:228: Line is longer than 90 characters (found 94). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:231: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:232: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:233: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:234: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:236:21: Name 'MOVE_RANGE' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:237:21: Name 'STEP_SIZE' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:230: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:231:25: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:231:25: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:232: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:235:25: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:235:25: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:238: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:239: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:241: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:243: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:246: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:247:17: 'while' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:247:17: 'while' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:247:41: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:248: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:249: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:250:25: 'for' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:250:25: 'for' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:250:57: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:242: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:243: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:244: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:245: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:247:21: Name 'MOVE_RANGE' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:251: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:254: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:256: Line is longer than 90 characters (found 93). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:257: Line is longer than 90 characters (found 93). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:258: Line is longer than 90 characters (found 93). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:259: Line is longer than 90 characters (found 92). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:261: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:263:33: 'for' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:263:33: 'for' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:264: Line is longer than 90 characters (found 96). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265: Line is longer than 90 characters (found 92). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265:41: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265:41: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265:53: '!=' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265:53: '!=' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:265:92: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:273: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:274: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:275: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:276:38: '-=' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:276:38: '-=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:257: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:258:17: 'while' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:258:17: 'while' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:258:66: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:259: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:260: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:261:25: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:261:25: 'for' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:261:57: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:262: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:264: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:266: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:268: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:271: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:278: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:279: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:290: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:292: Line is longer than 90 characters (found 141). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:292:108: '>' is followed by an illegal character. [GenericWhitespace]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:294:17: 'for' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:294:17: 'for' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:296: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:297: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:298:25: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:298:25: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:299: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:299: Line is longer than 90 characters (found 96). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:300: Line is longer than 90 characters (found 109). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:280: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:281:38: '-=' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:281:38: '-=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:285: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:286: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:287: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:294: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:295: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:300: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:302: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:306: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:308: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:313: Line is longer than 90 characters (found 100). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:334: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:335:17: switch without "default" clause. [MissingSwitchDefault]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:337: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:338: Line is longer than 90 characters (found 91). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:341: Line is longer than 90 characters (found 93). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:344: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:346: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:347: Line is longer than 90 characters (found 91). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:350: Line is longer than 90 characters (found 95). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:352: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:353: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:355: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:356: Line is longer than 90 characters (found 91). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:359: Line is longer than 90 characters (found 95). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:361: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:362: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:364: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:365: Line is longer than 90 characters (found 91). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:368: Line is longer than 90 characters (found 96). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:307: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:309: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:310:21: Name 'STEP_SIZE' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:320: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:321: Line is longer than 90 characters (found 110). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:323: Line is longer than 90 characters (found 141). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:323:108: '>' is followed by an illegal character. [GenericWhitespace]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:325:17: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:325:17: 'for' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:327: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:328: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:329:25: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:329:25: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:330: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:331: Line is longer than 90 characters (found 109). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:333:33: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:333:33: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:333:54: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:334: Line is longer than 90 characters (found 96). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:336: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:339: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:340: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:342: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:347: Line is longer than 90 characters (found 100). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:349: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:353:66: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:365:24: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:365:24: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:365:65: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:380: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:381:17: switch without "default" clause. [MissingSwitchDefault]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:383: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:384:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:385: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:385:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:385:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:384: Line is longer than 90 characters (found 91). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:387: Line is longer than 90 characters (found 93). [LineLength]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:390: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:394: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:396: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:402:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:402:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:405: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:406: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:409:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:412: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:417:9: Missing a Javadoc comment. [MissingJavadocMethod]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:422: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:392: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:393: Line is longer than 90 characters (found 105). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:396: Line is longer than 90 characters (found 95). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:398: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:399: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:401: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:402: Line is longer than 90 characters (found 91). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:405: Line is longer than 90 characters (found 95). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:407: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:408: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:410: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:411: Line is longer than 90 characters (found 101). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:414: Line is longer than 90 characters (found 96). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:422:9: Missing a Javadoc comment. [MissingJavadocMethod]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:423: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:423:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:423:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:428: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:432: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:434: Line is longer than 90 characters (found 102). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:435: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:437: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:442: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:443: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:448: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:451:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:451:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:452: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:453:24: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:453:24: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:454: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:455: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:456:24: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:456:24: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:456:45: Expression can be simplified. [SimplifyBooleanExpression]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:457: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:459: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:461: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:473:9: Missing a Javadoc comment. [MissingJavadocMethod]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:479: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Game.java:480: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/IllegalMoveException.java:1:15: ';' is not followed by whitespace. [WhitespaceAfter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/IllegalMoveException.java:1:16: Missing a Javadoc comment. [MissingJavadocType]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Piece.java:4: First sentence should end with a period. [JavadocStyle]
@@ -617,11 +452,11 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Rat.java:22: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Rat.java:25:67: '==' is not followed by whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Rat.java:25:67: '==' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:5:1: Missing a Javadoc comment. [MissingJavadocType]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:6:1: File contains tab characters (this is the first instance). [FileTabCharacter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:7:28: Name 'LION_RANK' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:15: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:5: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:11:1: File contains tab characters (this is the first instance). [FileTabCharacter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:12:28: Name 'LION_RANK' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:20: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Lion.java:25: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Tiger.java:4:1: Missing a Javadoc comment. [MissingJavadocType]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Tiger.java:5:1: File contains tab characters (this is the first instance). [FileTabCharacter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/pieces/Tiger.java:6:28: Name 'TIGER_RANK' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [StaticVariableName]
@@ -644,10 +479,8 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:48: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:51: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:53: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:54: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:59: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:61: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:62: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:58: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Player.java:60: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:8: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:12: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:13:3: File contains tab characters (this is the first instance). [FileTabCharacter]
@@ -660,54 +493,61 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:20: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:27:17: 'for' is not followed by whitespace. [WhitespaceAfter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:27:17: 'for' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:36: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:37: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:38: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:40:20: Variable 'DEN_COL' must be private and have accessor methods. [VisibilityModifier]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:40:20: Name 'DEN_COL' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:41:21: Name 'ROW_TRAP_PADDING' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:42:21: Name 'COL_TRAP_PADDING' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:32: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:33: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:34: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:36:20: Variable 'DEN_COL' must be private and have accessor methods. [VisibilityModifier]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:36:20: Name 'DEN_COL' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:37:21: Name 'ROW_TRAP_PADDING' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:38:21: Name 'COL_TRAP_PADDING' must match pattern '^[a-z][a-zA-Z0-9_]*$'. [MemberName]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:40: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:41: Line is longer than 90 characters (found 103). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:43: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:44: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:45: Line is longer than 90 characters (found 103). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:47: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:48: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:52: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:54:17: 'if' is not followed by whitespace. [WhitespaceAfter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:54:17: 'if' is not followed by whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:54:50: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:58: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:59: Line is longer than 90 characters (found 107). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:60: Line is longer than 90 characters (found 108). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:63: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:50:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:50:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:50:50: '{' is not preceded with whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:54: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:55: Line is longer than 90 characters (found 107). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:56: Line is longer than 90 characters (found 108). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:59: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:64: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:65: Line is longer than 90 characters (found 107). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:66: Line is longer than 90 characters (found 108). [LineLength]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:68: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:69: Line is longer than 90 characters (found 107). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:70: Line is longer than 90 characters (found 108). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:72: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:75: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:80: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:71: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/SquareBoard.java:76: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:1:15: ';' is not followed by whitespace. [WhitespaceAfter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:5: First sentence should end with a period. [JavadocStyle]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:9:1: File contains tab characters (this is the first instance). [FileTabCharacter]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:9:30: Array brackets at illegal position. [ArrayTypeStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:10:30: Array brackets at illegal position. [ArrayTypeStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:13: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:14: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:22: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:25:63: '{' is not preceded with whitespace. [WhitespaceAround]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:29: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:31: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:33: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:36: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:37: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:38: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:39: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:40: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:42: Line is longer than 90 characters (found 105). [LineLength]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:47: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:49: Line has trailing spaces or tabs. [RegexpSingleline]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:51: First sentence should end with a period. [JavadocStyle]
-[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:52: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:11: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:12:28: Array brackets at illegal position. [ArrayTypeStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:13:28: Array brackets at illegal position. [ArrayTypeStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:23: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:41: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:45: Line is longer than 90 characters (found 151). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:45:17: 'if' is not followed by whitespace. [WhitespaceAfter]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:45:17: 'if' is not followed by whitespace. [WhitespaceAround]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:46: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:49: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:52:63: '{' is not preceded with whitespace. [WhitespaceAround]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:53: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:57: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:59: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:61: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:62: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:65: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:66: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:67: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:68: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:69: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:71: Line is longer than 90 characters (found 105). [LineLength]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:76: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:78: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:80: First sentence should end with a period. [JavadocStyle]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:81: Line has trailing spaces or tabs. [RegexpSingleline]
+[WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/Grid.java:82: Line has trailing spaces or tabs. [RegexpSingleline]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/squares/Square.java:4:1: Missing a Javadoc comment. [MissingJavadocType]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/squares/Square.java:5:1: File contains tab characters (this is the first instance). [FileTabCharacter]
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/squares/Square.java:7: First sentence should end with a period. [JavadocStyle]
@@ -735,4 +575,4 @@ Note: Recompile with -Xlint:unchecked for details.
 [WARN] /cs/home/iw72/Documents/CS5001/CS5001-p2-jungle/src/./jungle/squares/PlainSquare.java:2:1: File contains tab characters (this is the first instance). [FileTabCharacter]
 ---
 
-5 out of 8 tests passed
+6 out of 8 tests passed
