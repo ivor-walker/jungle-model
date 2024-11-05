@@ -1,19 +1,23 @@
 package jungle;import java.util.stream.IntStream;
 import java.util.function.Supplier;
-
+import java.lang.reflect.Array;
 
 /**
  * Grid: generic class for storing 2d representations
 */
 public class Grid<T> {
-	public int HEIGHT = 9;
-	public int WIDTH = 7;
-	protected int ALL_ROWS[] = getSequence(WIDTH);
-	protected int ALL_COLS[] = getSequence(HEIGHT);
-	protected T[][] grid; 
+	protected int allCols[];
+	protected int allRows[];
+	protected T[][] grid;
+	protected int height;
+	protected int width; 
 	
-	public Grid() {
-		this.grid = (T[][]) new Object[HEIGHT][WIDTH];
+	public Grid(Class<T> type, int height, int width) {
+		this.grid = (T[][]) Array.newInstance(type, height, width);
+		this.height = height;
+		this.width = width;
+		this.allRows = getSequence(height);
+		this.allCols = getSequence(width);
 	}
 /**
  * Getter of element at coordinate in grid
@@ -49,13 +53,13 @@ public class Grid<T> {
 */	
 	protected int[] getSequence(int n) {
 		return IntStream
-			.rangeClosed(0, n)
+			.range(0, n)
 			.toArray();
 	}
 
 	protected int[] getSequence(int start, int n) {
 		return IntStream
-			.rangeClosed(start, n)
+			.range(start, n)
 			.toArray();
 	}
 }

@@ -21,6 +21,10 @@ public abstract class Square {
 		//Owner for unownable squares is null 
 		return owner != null && owner.equals(player);	
 	}
+	
+	public Player getOwner() {
+		return owner;
+	}
 
 	public boolean isWater() {
 		return false;

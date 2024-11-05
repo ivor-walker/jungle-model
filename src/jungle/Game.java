@@ -21,8 +21,11 @@ import java.util.stream.Collectors;
 public class Game {
 	private static int NUM_PLAYERS = 2;
 	private Player[] players = new Player[NUM_PLAYERS];
-	private Grid<Piece> pieces = new Grid<Piece>();
+	public static int HEIGHT = 9;
+	public static int WIDTH = 7;	
+	private Grid<Piece> pieces = new Grid<Piece>(Piece.class, HEIGHT, WIDTH);
 	private SquareBoard board;
+	//Redundant due to better definition at Grid, but required else tests will crash
 	private int lastMoved = 1;
 /**
  *	Constructor for game: creates the board, adds pieces to their starting position
@@ -32,7 +35,7 @@ public class Game {
 		players[0] = p0;
 		players[1] = p1;
 
-		board = new SquareBoard(players);	
+		board = new SquareBoard(players, HEIGHT, WIDTH);	
 		this.addStartingPieces();		
 	}
 	
@@ -57,11 +60,10 @@ public class Game {
  */	
 	public void addPiece(int row, int col, int rank, int playerNumber) {
 		Piece piece;
-		//Find square at location
-		Coordinate targetLocation = new Coordinate(row, col);	
-		Square square = board.getGridLocation(targetLocation);
+		Square square = this.getSquare(row, col);
 		Player owner = players[playerNumber];
-	
+
+		//Initialise piece	
 		if(rank == RAT_RANK) {
 			//Power 1 piece: rat	
 			piece = new Rat(owner, square);
@@ -75,10 +77,10 @@ public class Game {
 			//Base case: not special piece
 			piece = new Piece(owner, square, rank);
 		}
-
+	
+		//Set new piece on grid	
+		Coordinate targetLocation = new Coordinate(row, col);
 		pieces.setGridLocation(targetLocation, piece);
-		players[playerNumber].gainOnePiece();
-		checkTraps(piece, square);
 	}
 
 	public void addStartingPieces() {
@@ -108,23 +110,28 @@ public class Game {
 		return pieces.getGridLocation(targetLocation);
 	}
 
+	public Square getSquare(int row, int col) {
+		Coordinate targetLocation = new Coordinate(row, col);	
+		return board.getGridLocation(targetLocation);
+	}
+
 	public void move(int fromRow, int fromCol, int toRow, int toCol){
 		//Check if correct player is moving	
 		Piece fromPiece = this.getPiece(fromRow, fromCol);
+		assert fromPiece.getRank() == 0;	
 		int movingPlayerNumber = getOwner(fromPiece).getPlayerNumber();
 		if(movingPlayerNumber != lastMoved){
 			throw new IllegalMoveException();
 		}
-
+		
+		Coordinate toLocation = new Coordinate(toRow, toCol);
 		//Check if move is legal
 		List<Coordinate> legalMoves = getLegalMoves(fromRow, fromCol);
-		Coordinate toLocation = new Coordinate(toRow, toCol);
 		if(!legalMoves.contains(toLocation)) {
 			throw new IllegalMoveException();
 		}	
 
-		Coordinate fromLocation = new Coordinate(fromRow, fromCol);
-		Square fromSquare = board.getGridLocation(fromLocation);	
+		Square fromSquare = this.getSquare(fromRow, fromCol);	
 		
 		//Check if capture is occuring	
 		Piece toPiece = this.getPiece(toRow, toCol);
@@ -133,46 +140,19 @@ public class Game {
 			toPiece.beCaptured();	
 		}
 
-		//Move piece on board	
-		pieces.setGridLocation(fromLocation, null);
-		pieces.setGridLocation(toLocation, fromPiece);	
+		//Move piece on board
+		pieces.setGridLocation(new Coordinate(fromRow, fromCol), null);
+		pieces.setGridLocation(new Coordinate(toRow, toCol), fromPiece);	
 
-		//Move piece's square
-		Square toSquare = board.getGridLocation(toLocation);
+		//Move piece
+		Square toSquare = this.getSquare(toRow, toCol);
 		fromPiece.move(toSquare);
 
 		//End of turn logic
 		lastMoved = movingPlayerNumber;
-		checkTraps(fromPiece, toSquare, fromSquare);
 		this.checkVictory(toSquare);
 	}
 	
-	
-/**
- *	Helper method to check if piece needs to be trapped
- *	@param piece evaluated piece
- *	@param toSquare piece square is currently sitting on 
-*/ 
-	private void checkTraps(Piece piece, Square toSquare) {
-		if(toSquare.isTrap()) {
-			piece.trap();	
-		}
-		throw new IllegalArgumentException("here");	
-	}	
-/**
- *	Extention of checkTraps to see if a given move will trap or untrap a piece
- *	@param piece
- *	@param toSquare future square
- *	@param fromSquare present square 
-*/	
-	private void checkTraps(Piece piece, Square toSquare, Square fromSquare) {
-		checkTraps(piece, toSquare);	
-
-		if(fromSquare.isTrap()) {
-			piece.untrap();	
-		}
-	}
-
 	public List<Coordinate> getLegalMoves(int row, int col){
 		//If game is over, no legal moves	
 		if(gameOver) {	
@@ -180,10 +160,10 @@ public class Game {
 		}
 
 		Coordinate startingLocation = new Coordinate(row, col);	
-		//Guaranteed all structurally possible moves (i.e not out of bounds)	
+		//Guaranteed all structurally possible moves 		
 		List<Coordinate> legalMoves = getNextNodes(startingLocation);
-		Piece startingPiece = getPiece(row, col);
-		Square startingSquare = board.getGridLocation(startingLocation);
+		Piece startingPiece = this.getPiece(row, col);
+		Square startingSquare = this.getSquare(row, col);
 		
 		//Add leaps	
 		if(startingPiece.canLeapHorizontally()) {	
@@ -193,106 +173,23 @@ public class Game {
 		if(startingPiece.canLeapVertically()) { 
 			legalMoves.addAll(getLeaps(startingPiece, startingLocation, legalMoves, true)); 
 		}
+		
+		List<Coordinate> illegalMoves = this.getIllegalMoves(startingPiece, startingSquare, legalMoves);
 
-		//Remove rule breaking moves	
-		legalMoves = filterMoves(startingPiece, startingSquare, legalMoves);
+		//Remove rule breaking moves
+				
+		legalMoves.removeAll(illegalMoves);
 		
 		return legalMoves; 
 	}
-
-	
-
-	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
-		List<Coordinate> leaps = new ArrayList<>();
-		for(Coordinate move: legalMoves) {
-			Square targetSquare = board.getGridLocation(move);
- 
-			//If proposed square is water 
-			if(targetSquare.isWater()) {
-				//Get proposed direction & row, and calculate associated leap	
-				Direction direction = determineDirection(startingLocation, move, isVertical);
-				Coordinate leap = getLeaps(startingLocation, direction);
-				leaps.add(leap);	
-			}
-		}
-
-		return leaps;			
-	}
-	
-	private enum Direction {
-		UP, DOWN, LEFT, RIGHT
-	}
-
-	private Direction determineDirection(Coordinate start, Coordinate end, boolean isVertical) {
-	    if (isVertical) {
-		if (start.row() + MOVE_RANGE == end.row()) {
-		    return Direction.DOWN;
-		} else {
-		    return Direction.UP;
-		}
-	    } else {
-		if (start.col() - MOVE_RANGE == end.col()) {
-		    return Direction.LEFT;
-		} else {
-			return Direction.RIGHT;
-		}
-	    }
-	}
-
-	private Coordinate getLeaps(Coordinate start, Direction direction) {
-		//Initialise search for first non-water square
-		int row = start.row();
-		int col = start.col();
-	
-		switch (direction) {
-			case UP:
-				//Move up until non-water square found 
-            			while (row > 0 && board.getGridLocation(new Coordinate(row - 1, col)).isWater()) {
-            			    row--;
-            			}
-            			//Move one more square up to reach the first non-water square
-				row--;
-            			break;
-	
-			case DOWN:
-				//Move down until non-water square found 
-            			while (row > 0 && board.getGridLocation(new Coordinate(row + 1, col)).isWater()) {
-            			    row++;
-            			}
-            			//Move one more square down to reach the first non-water square
-				row++;
-            			break;	
-			
-			case LEFT:
-				//Move left until non-water square found 
-            			while (row > 0 && board.getGridLocation(new Coordinate(row, col - 1)).isWater()) {
-            			    row--;
-            			}
-            			//Move one more square left to reach the first non-water square
-				row--;
-            			break;	
-			
-			case RIGHT:
-				//Move right until non-water square found 
-            			while (row > 0 && board.getGridLocation(new Coordinate(row, col + 1)).isWater()) {
-            			    row++;
-            			}
-            			//Move one more square right to reach the first non-water square
-				row++;
-            			break;
-		}
-
-		return new Coordinate(row, col);
-	}
-
 /**
- *	Excludes illegal moves from legalMoves
+ * 	Get all possible illegal moves, to be removed in getLegalMoves
  *	@param startingPiece piece to be moved
  *	@param startingSquare square where piece is to be moved from 
  *	@param legalMoves all possible legal moves
- *	@return filtered list of legalMoves
+ *	@return all illegal moves
 */	
-	private List<Coordinate> filterMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
+	private List<Coordinate> getIllegalMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
 		List<Coordinate> excludedMoves = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
@@ -319,7 +216,6 @@ public class Game {
 			}
 		}		
 		
-		legalMoves.removeAll(excludedMoves);
 		return excludedMoves;
 	}	
 
@@ -333,7 +229,7 @@ public class Game {
 	
 /**
  *	Gets all legal moves from a given point	
- *	This is essentially a graph traversal problem
+ *	Breadth-first traversal of grid enables custom move ranges and step sizes	
 */
 	private int MOVE_RANGE = 1;
 	private int STEP_SIZE = 1;
@@ -389,23 +285,120 @@ public class Game {
 		}
 	}
 
+	
+
+	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
+		List<Coordinate> leaps = new ArrayList<>();
+		for(Coordinate move: legalMoves) {
+			Square targetSquare = board.getGridLocation(move);
+ 
+			//If proposed square is water 
+			if(targetSquare.isWater()) {
+				//Get proposed direction & row, and calculate associated leap	
+				Direction direction = determineDirection(startingLocation, move, isVertical);
+				Coordinate leap = getLeaps(startingLocation, direction);
+				leaps.add(leap);	
+			}
+		}
+
+		return leaps;			
+	}
+	
+	private enum Direction {
+		UP, DOWN, LEFT, RIGHT
+	}
+
+	private Direction determineDirection(Coordinate start, Coordinate end, boolean isVertical) {
+	    if (isVertical) {
+		if (start.row() + MOVE_RANGE == end.row()) {
+		    return Direction.DOWN;
+		} else {
+		    return Direction.UP;
+		}
+	    } else {
+		if (start.col() - MOVE_RANGE == end.col()) {
+		    return Direction.LEFT;
+		} else {
+			return Direction.RIGHT;
+		}
+	    }
+	}
+
+
+	private Coordinate getLeaps(Coordinate start, Direction direction) {
+		//Initialise search for first non-water square
+		int row = start.row();
+		int col = start.col();
+	
+		switch (direction) {
+			case UP:
+				//Move up until non-water square found 
+            			while (row > 0 && this.getSquare(row - 1, col).isWater()) {
+            			    row--;
+            			}
+            			//Move one more square up to reach the first non-water square
+				row--;
+            			break;
+	
+			case DOWN:
+				//Move down until non-water square found 
+            			while (row > 0 && this.getSquare(row + 1, col).isWater()) {
+            			    row++;
+            			}
+            			//Move one more square down to reach the first non-water square
+				row++;
+            			break;	
+			
+			case LEFT:
+				//Move left until non-water square found 
+            			while (row > 0 && this.getSquare(row, col - 1).isWater()) {
+            			    row--;
+            			}
+            			//Move one more square left to reach the first non-water square
+				row--;
+            			break;	
+			
+			case RIGHT:
+				//Move right until non-water square found 
+            			while (row > 0 && this.getSquare(row, col + 1).isWater()) {
+            			    row++;
+            			}
+            			//Move one more square right to reach the first non-water square
+				row++;
+            			break;
+		}
+
+		return new Coordinate(row, col);
+	}
+
+
 	private Player getOwner(Piece piece) {
 		return Arrays.stream(players)
 			.filter(player -> piece.isOwnedBy(player))
 			.findFirst()
 			.orElseThrow(() -> new IllegalArgumentException());
 	}
-
+	
+	public Player getPlayer(int playerNumber) {
+		if(playerNumber == 0 || playerNumber == 1) {	
+			return players[playerNumber];
+		}
+		throw new IllegalArgumentException();
+	}
+	
 	private boolean gameOver = false;
 	private Player winner;
-	
+
+	//TODO fix	
 	private void checkVictory(Square winningTarget) {
+		//Get all players with pieces	
 		List<Player> alivePlayers = Arrays
 			.stream(players)
 			.filter(Player::hasPieces)
 			.collect(Collectors.toList());
-
+		//If den is a legal move or if there's only one player left with pieces
 		if(winningTarget.isDen() || alivePlayers.size() == 1) {
+			//End the game and declare remaining player winner
 			this.endGame();
 			this.setWinner(alivePlayers.get(0));				
 		}	

@@ -25,14 +25,13 @@ public class Player {
 		return this.playerNumber;	
 	}
 
+	private boolean denCaptured = false;
 /**
  * 	Setter method for denCaptured	
 */
 	public void captureDen() {
 		this.denCaptured = true;	
 	}
-
-	private boolean denCaptured = false;
 /**
  *	Getter method for denCaptured
 */

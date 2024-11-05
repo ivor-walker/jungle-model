@@ -16,9 +16,10 @@ public class SquareBoard extends Grid<Square> {
 	public int[] WATER_ROWS = {3, 4, 5};
 	public int[] WATER_COLS = {1, 2, 4, 5};
 	
-	public SquareBoard(Player[] players) {	
-		//Set the whole board to plainSquares (ALL_ROWS inherited from grid)
-		this.setGridLocation(ALL_ROWS, ALL_COLS, PlainSquare::new);
+	public SquareBoard(Player[] players, int height, int width) {
+		super(Square.class, height, width);	
+		//Set the whole board to plainSquares (allRows inherited from grid)
+		this.setGridLocation(allRows, allCols, PlainSquare::new);
 		//Set water squares
 		this.setGridLocation(WATER_ROWS, WATER_COLS, WaterSquare::new);
 
@@ -62,7 +63,7 @@ public class SquareBoard extends Grid<Square> {
 		//Player 1 case 
 		} else {
 			//Den at bottom row
-			denRow = HEIGHT;
+			denRow = height - 1;
 			targetRows = getSequence(denRow - ROW_TRAP_PADDING, denRow);
 			//Corners at top left and right	
 			leftCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);

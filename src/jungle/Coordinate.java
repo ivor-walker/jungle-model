@@ -8,20 +8,20 @@ import java.util.Objects;
 public class Coordinate {
 	private int x;
 	private int y;
-	
+	private static int HEIGHT_LIMIT = 9;
+	private static int WIDTH_LIMIT = 7;	
 /**
  *	Constructor
  *	@param row x coordinate 
  *	@param column y of coordinate
 */
 	public Coordinate(int row, int col) {
-		if(row < 0 || col < 0) {
+		if(row < 0 || col < 0 || row >= HEIGHT_LIMIT || col >= WIDTH_LIMIT){
 			throw new IndexOutOfBoundsException();	
 		}
 		this.x = row;
 		this.y = col;	
 	}
-
 
 /**
  *	Getter for row (x)

@@ -23,6 +23,9 @@ public class Piece {
 		this.square = square;
 		this.rank = rank;	
 		this.strength = rank;
+		
+		this.checkTrap(square);
+		this.owner.gainOnePiece();
 	}
 
 /**
@@ -32,6 +35,10 @@ public class Piece {
         public boolean isOwnedBy(Player player) {
                 return owner.equals(player);
         }
+	
+	public Player getOwner() {
+		return owner;
+	}
 	
 	public int getStrength() {
 		return strength;
@@ -66,15 +73,47 @@ public class Piece {
  * 	@param toSquare new Square position for this piece
 */	
 	public void move(Square toSquare) { 
-		square = toSquare;		
+		Square fromSquare = this.square;
+		
+		square = toSquare;
+	
+		this.checkTrap(fromSquare, toSquare);	
+		
+		boolean movingToDen = toSquare.isDen();
+		if(movingToDen) {
+			Player denOwner = toSquare.getOwner();
+			//Can't capture player's own den	
+			if(!this.isOwnedBy(denOwner)) {
+				this.owner.captureDen();
+			}
+		}
+	}
+/**
+ * Check if piece is currently trapped
+*/	
+	private void checkTrap(Square toSquare) {
+		if(toSquare.isTrap()) {
+			this.trap();
+		}
 	}
 
+/**
+ * Check if proposed move will trap piece
+*/	
+	private void checkTrap(Square fromSquare, Square toSquare) {
+		checkTrap(toSquare);	
+		boolean currentlyTrapped = fromSquare.isTrap();
+		boolean movingToTrap = toSquare.isTrap();
+		if(currentlyTrapped && !movingToTrap) {
+			this.untrap();
+		}
+	}
 /**
  * 	Checks if this piece can defeat target piece
 */
 	public boolean canDefeat(Piece target) {
 		//'a piece can capture a piece of its strength or lower'
-		return target.strength <= strength;
+		return target.strength <= this.strength;
 	}
 /**
  * 	Setter for active: capture this piece
