@@ -3,7 +3,7 @@ import jungle.Player;
 import jungle.squares.Square;
 
 /**
- * Special piece lion
+ * Special Piece Lion.
  * Has rank 7, can leap both directions
 */
 

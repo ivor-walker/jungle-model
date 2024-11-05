@@ -1,9 +1,9 @@
-package jungle;import java.util.List;
-import java.lang.IndexOutOfBoundsException;
+package jungle;
+import java.util.List;
 import java.util.Objects;
 
 /**
- * Coordinate: class for expression location in a grid
+ * Coordinate: class for expression location in a grid.
 */
 public class Coordinate {
 	private int x;
@@ -11,7 +11,7 @@ public class Coordinate {
 	private int heightLimit;
 	private int widthLimit;
 /**
- *	Constructor
+ *	Constructor.
  *	@param row x coordinate 
  *	@param column y of coordinate
 */
@@ -21,7 +21,7 @@ public class Coordinate {
 	}
 
 /**
- *	Getter for row (x)
+ *	Getter for row (x).
  *	@return row of this coordinate
 */
 	public int row() {
@@ -29,13 +29,14 @@ public class Coordinate {
 	}
 
 /**
- *	Getter for column (y)
+ *	Getter for column (y).
  *	@return column of this coordinate
 */
 	public int col() {
 		return y;
 	}
-	
+
+	//Overriden equals to enable searching lists for a given coordinate	
 	@Override
 	public boolean equals(Object obj) {
 		Coordinate objCoordinate = (Coordinate) obj;

@@ -1,7 +1,6 @@
 package jungle;
 import jungle.pieces.Piece;
 import jungle.squares.Square;
-import jungle.Player;
 import jungle.pieces.Rat;
 import jungle.pieces.Tiger;
 import jungle.pieces.Lion;
@@ -17,19 +16,37 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 /**
- * Game: Grid representation of pieces
+ * Game: class to manipulate pieces and board.
 */
 public class Game {
+	//initialise players	
 	private static int NUM_PLAYERS = 2;
 	private Player[] players = new Player[NUM_PLAYERS];
+/**
+ * 	Getter for player.
+*/
+	public Player getPlayer(int playerNumber) {
+		if (playerNumber == 0 || playerNumber == 1) {	
+			return players[playerNumber];
+		}
+		throw new IllegalArgumentException();
+	}
+
+	//initialise grids
+	//These static variables are public to satisfy tests, ideally private with a getter.	
 	public static int HEIGHT = 9;
-	public static int WIDTH = 7;	
+	public static int WIDTH = 7;
+	//pieces: Grid filled with pieces, represents 2d location of all pieces
 	private Grid<Piece> pieces = new Grid<Piece>(Piece.class, HEIGHT, WIDTH);
+	//pieces: SquareBoard filled with squares, represents 2d location of all squares
 	private SquareBoard board;
-	//Redundant due to better definition at Grid, but required else tests will crash
+	//Stores player who last moved (e.g for same-round move checks)
 	private int lastMoved = 1;
 /**
- *	Constructor for game: creates the board, adds pieces to their starting position
+ *	Constructor for Game.
+ *	Creates the board, set players and adds pieces to their starting position.
+ *	@param p0 first player
+ *	@param p1 second player
 */
 	public Game(Player p0, Player p1) {
 		//Initialise board with dens
@@ -49,14 +66,11 @@ public class Game {
 	private static Set<Integer> SPECIAL_RANKS = Set.of(RAT_RANK, TIGER_RANK, LION_RANK);
 
 /**
- * 	addPiece:
- * 		-get square based on row and col parameters
- * 		-initialise correct form of piece at square
- * 		-set it on board
+ * 	addPiece: get square based on row and col parameters, initialise correct form of piece at square, and set it on board.
  * 	@param row
  * 	@param col
- * 	@param rank
- * 	@param playerNumber
+ * 	@param rank rank of new piece, note that ranks listed in SPECIAL_RANKS (i.e 1, 6, 7) create associated special pieces
+ * 	@param playerNumber playerNumber associated with new piece's owner
  */	
 	public void addPiece(int row, int col, int rank, int playerNumber) {
 		Piece piece;
@@ -64,13 +78,13 @@ public class Game {
 		Player owner = players[playerNumber];
 
 		//Initialise piece	
-		if(rank == RAT_RANK) {
+		if (rank == RAT_RANK) {
 			//Power 1 piece: rat	
 			piece = new Rat(owner, square);
-		} else if(rank == TIGER_RANK) {
+		} else if (rank == TIGER_RANK) {
 			//Power 6 piece: tiger
 			piece = new Tiger(owner, square);	
-		} else if(rank == LION_RANK) {
+		} else if (rank == LION_RANK) {
 			//Power 7 piece: lion
 			piece = new Lion(owner, square);
 		} else {
@@ -84,7 +98,9 @@ public class Game {
 
 		checkVictory();
 	}
-
+/**
+ * 	addStartingPieces: adds starting pieces onto Game's board.
+*/
 	public void addStartingPieces() {
 	    // Player 0 pieces
 	    this.addPiece(0, 0, 7, 0); 
@@ -106,25 +122,39 @@ public class Game {
 	    this.addPiece(6, 4, 5, 1);
 	    this.addPiece(6, 0, 8, 1);
 	}
-
+/**
+ * 	getPiece: piece-friendly wrapper around piece's grid getGridLocation getter.
+ * 	@param row Row of target coordinate to be passed to getGridLocation 
+ * 	@param col Column of target coordinate
+ * 	@return Piece at Coordinate(row, col)
+*/
 	public Piece getPiece(int row, int col) {
 		Coordinate targetLocation = new Coordinate(row, col);	
 		return pieces.getGridLocation(targetLocation);
 	}
-
+/**
+ * 	getSquare: square-friendly wrapper around board's squareboard (inherited from grid) getGridLocation getter.
+ * 	@param row Row of target coordinate to be passed to getGridLocation 
+ * 	@param col Column of target coordinate
+ * 	@return Square at Coordinate(row, col)
+*/
 	public Square getSquare(int row, int col) {
 		Coordinate targetLocation = new Coordinate(row, col);	
 		return board.getGridLocation(targetLocation);
 	}
+/**
+ * 	move: setter for pieces grid. 
+ * 	Ensures proposed move is legal, tries to capture piece at target, updates underlying grid and handles end of turn logic
+*/
 
-	public void move(int fromRow, int fromCol, int toRow, int toCol){
+	public void move(int fromRow, int fromCol, int toRow, int toCol) {
 		//Check if correct player is moving	
 		Piece fromPiece = this.getPiece(fromRow, fromCol);
 		
 		Coordinate toLocation = new Coordinate(toRow, toCol);
 		//Check if move is legal
 		List<Coordinate> legalMoves = getLegalMoves(fromRow, fromCol);
-		if(!legalMoves.contains(toLocation)) {
+		if (!legalMoves.contains(toLocation)) {
 			throw new IllegalMoveException();
 		}	
 
@@ -132,7 +162,7 @@ public class Game {
 		
 		//Check if capture is occuring	
 		Piece toPiece = this.getPiece(toRow, toCol);
-		if(toPiece != null){
+		if (toPiece != null) {
 			//Capture
 			toPiece.beCaptured();	
 		}
@@ -145,29 +175,37 @@ public class Game {
 		Square toSquare = this.getSquare(toRow, toCol);
 		fromPiece.move(toSquare);
 
-		//End of turn logic
+		//End of turn logic: update last moved, check if game is over
 		lastMoved = fromPiece.getOwner().getPlayerNumber();
 		this.checkVictory();
 	}
-	
-	public List<Coordinate> getLegalMoves(int row, int col){
+
+	private static int MOVE_RANGE = 1;
+	private static int STEP_SIZE = 1; 
+/**
+ *	getLegalMoves: gets all legal moves at a point.
+ *	@param row row of point being inspected
+ *	@param col
+ *	@return list of all legal moves
+*/
+	public List<Coordinate> getLegalMoves(int row, int col) {
 		List<Coordinate> legalMoves = new ArrayList<>();
 		
 		//Situations in which no legal moves apply:
 		//Game is over
-		if(this.gameOver) {	
+		if (this.gameOver) {	
 			return legalMoves;	
 		}
 	
 		//No piece at target	
 		Piece startingPiece = this.getPiece(row, col);
-		if(startingPiece == null) {
+		if (startingPiece == null) {
 			return legalMoves;	
 		}
 		
 		//Incorrect player moving
 		int movingPlayerNumber = startingPiece.getOwner().getPlayerNumber();
-		if(movingPlayerNumber == lastMoved){
+		if (movingPlayerNumber == lastMoved) {
 			return legalMoves;	
 		}
 		
@@ -175,17 +213,17 @@ public class Game {
 		Square startingSquare = this.getSquare(row, col);
 		
 		//Add all structurally possible moves 		
-		List<Coordinate> startingMoves = getNextNodes(startingLocation);
+		List<Coordinate> startingMoves = pieces.getNextNodes(startingLocation, MOVE_RANGE, STEP_SIZE);
 		legalMoves.addAll(startingMoves);
 	
 		//Add leaps	
 		List<Coordinate> leaps = new ArrayList<>();	
-		if(startingPiece.canLeapHorizontally()) {	
-			leaps.addAll(getLeaps(startingPiece, startingLocation, legalMoves, false)); 
+		if (startingPiece.canLeapHorizontally()) {	
+			leaps.addAll(getLeaps(startingLocation, legalMoves, false)); 
 		}
 		
-		if(startingPiece.canLeapVertically()) { 
-			leaps.addAll(getLeaps(startingPiece, startingLocation, legalMoves, true));
+		if (startingPiece.canLeapVertically()) { 
+			leaps.addAll(getLeaps(startingLocation, legalMoves, true));
 		}
 		legalMoves.addAll(leaps);		
 			
@@ -198,7 +236,7 @@ public class Game {
 	
 		
 /**
- * 	Get all possible illegal moves, to be removed in getLegalMoves
+ * 	Get all possible illegal moves, to be removed in getLegalMoves.
  *	@param startingPiece piece to be moved
  *	@param startingSquare square where piece is to be moved from 
  *	@param legalMoves all possible legal moves
@@ -206,18 +244,20 @@ public class Game {
 */	
 	private List<Coordinate> getIllegalMoves(Piece startingPiece, Square startingSquare, List<Coordinate> legalMoves) {
 		Set<Coordinate> excludedMoves = new HashSet<>();
-		for(Coordinate move: legalMoves) {
+		for (Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
 			Square targetSquare = this.getSquare(move.row(), move.col());
 						
 			boolean exclude = false;
 			
 			//Pieces on the square of the attempted move	
-			if(targetPiece != null) {
+			if (targetPiece != null) {
 				boolean isEnemyPiece = (targetPiece.getOwner().getPlayerNumber() == lastMoved);
-				if(!isEnemyPiece) {
+				//If attempting to move onto an allied piece	
+				if (!isEnemyPiece) {
 					exclude = true;
-				} else if(isEnemyPiece && !startingPiece.canDefeat(targetPiece)) {
+				//If attempting to move onto enemy piece and cannot capture
+				} else if (isEnemyPiece && !startingPiece.canDefeat(targetPiece)) {
 					exclude = true;
 				}
 			}
@@ -226,11 +266,11 @@ public class Game {
 			boolean attemptingSwim = targetSquare.isWater();	
 			boolean canSwim = startingPiece.canSwim();
 				
-			if(attemptingSwim && !canSwim) {
+			if (attemptingSwim && !canSwim) {
 				exclude = true;	
 			}
 
-			if(exclude) {
+			if (exclude) {
 				excludedMoves.add(move);
 			}
 		}		
@@ -239,96 +279,22 @@ public class Game {
 	}	
 	
 /**
- *	Gets all legal moves from a given point	
- *	Breadth-first traversal of grid enables custom move ranges and step sizes	
+ * 	getLeaps: if a water square is passed as a possible legal move, add an appropriate horizontal or vertical leap.
+ * 	@param startingLocation origin location of jump, used to calculate relative direction of legal move
+ * 	@param legalMoves list of structurally possible moves
+ * 	@param isVertical whether jump is horizontal or vertical, used to constrain possible directions
 */
-	private int MOVE_RANGE = 1;
-	private List<Coordinate> getNextNodes(Coordinate startingNode) {
-		int currentBudget = MOVE_RANGE;
-		List<Coordinate> affordableNodes = new ArrayList<>();
-		//History is a set to avoid duplicates	
-		Set<Coordinate> history = new HashSet<>();
-		List<Coordinate> queueNodes = new ArrayList<>();
-		
-		queueNodes.add(startingNode);
-		history.add(startingNode);
-	
-		while(currentBudget > 0 && !queueNodes.isEmpty()){
-			List<Coordinate> toBeQueued = new ArrayList<>();	
-			//Traverse all nodes in queue	
-			for(Coordinate node: queueNodes){
-				//Get neighbours	
-				List<Coordinate> neighbours = this.traverse(node);
-				
-				neighbours = neighbours.stream()
-					//Remove invalid nodes	
-					.filter(Objects::nonNull)
-					//Remove already traversed	
-					.filter(neighbour -> !history.contains(neighbour))
-					.toList();
-				
-				//Update
-				affordableNodes.addAll(neighbours);
-				toBeQueued.addAll(neighbours);
-				history.addAll(neighbours);
-			}
-
-			//Update queue	
-			queueNodes = toBeQueued;	
-			//Decrease budget	
-			currentBudget-=STEP_SIZE;
-						}
-		//Remove origin node
-		affordableNodes.remove(startingNode);
-		
-		
-		return affordableNodes;	
-	}
-
-/**
- * 	Helper methods for traversal
-*/
-
-/**
- * 	Checks if node is valid 
-*/
-	private Coordinate checkIfValidNode(int row, int col) {
-		try {
-			Coordinate targetLocation = new Coordinate(row, col);
-			//using SquareBoard's testBounds method, inherited from Grid	
-			board.testBounds(targetLocation);
-			return targetLocation;	
-		} catch (IndexOutOfBoundsException e) {
-			return null;
-		}
-	}
-/**
- * 	Lists nearest neighbours of node
-*/	
-	private int STEP_SIZE = 1;
-	private List<Coordinate> traverse(Coordinate node) {
-		return Arrays.asList(
-			checkIfValidNode(node.row() - STEP_SIZE, node.col()),
-			checkIfValidNode(node.row() + STEP_SIZE, node.col()),
-			checkIfValidNode(node.row(), node.col() - STEP_SIZE),
-			checkIfValidNode(node.row(), node.col() + STEP_SIZE)
-		);
-
-	}
-/**
- * Leaps: if a water square is passed as a possible legal move, add an appropriate horizontal or vertical leap
-*/
-	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
+	private List<Coordinate> getLeaps(Coordinate startingLocation, List<Coordinate> legalMoves, boolean isVertical) {
 		List<Coordinate> leaps = new ArrayList<>();
-		for(Coordinate move: legalMoves) {
+		for (Coordinate move: legalMoves) {
 			Square targetSquare = this.getSquare(move.row(), move.col());
 			Piece targetPiece = this.getPiece(move.row(), move.col()); 
 			//If proposed square is water and not blocked by another piece 
-			if(targetSquare.isWater() && targetPiece == null) {
+			if (targetSquare.isWater() && targetPiece == null) {
 				//Get proposed direction	
 				Direction direction = determineDirection(startingLocation, move, isVertical);
-				//If direction proposed is invalid for horizontal/vertical
-				if(direction != null){
+				//If direction proposed is valid for horizontal/vertical
+				if (direction != null) {
 					Coordinate leap = getLeaps(startingLocation, direction);
 					leaps.add(leap);
 				}	
@@ -338,19 +304,27 @@ public class Game {
 		return leaps;			
 	}
 	
+	//All possible directions	
 	private enum Direction {
 		UP, DOWN, LEFT, RIGHT
 	}
-
+/**
+ * 	determinesDirection: Determines which member of enum Direction is descriptive of the move between start and end.
+ * 	@param start Origin coordinate (i.e startingLocation)
+ * 	@param end Destination coordinate (i.e the legal move under consideration)
+ * 	@param isVertical Direction to move, passed from getLeaps argument
+ * 	@return either appropriate member of Direction or null if no available jump
+*/
 	private Direction determineDirection(Coordinate start, Coordinate end, boolean isVertical) {
 	    if (isVertical) {
 	
 		if (start.row() + MOVE_RANGE == end.row()) {
 		    return Direction.DOWN;
 
-		} else if (start.row() - MOVE_RANGE == end.row()){
+		} else if (start.row() - MOVE_RANGE == end.row()) {
 		    return Direction.UP;
 
+		//Null case: the leap being proposed isn't the expected vertical leap, so ignore it.
 		} else {
 			return null;
 		}
@@ -360,9 +334,10 @@ public class Game {
 		if (start.col() - MOVE_RANGE == end.col()) {
 		    	return Direction.LEFT;
 
-		} else if(start.col() + MOVE_RANGE == end.col()){
+		} else if (start.col() + MOVE_RANGE == end.col()) {
 			return Direction.RIGHT;
 
+		//Null case: the leap being proposed isn't the expected horizontal leap, so ignore it.
 		} else {
 			return null;
 		}
@@ -370,7 +345,12 @@ public class Game {
 	    }
 	}
 
-
+/**
+ * 	getLeaps: Calculate target coordinates for a leap in the given direction.
+ * 	@param start Location to start looking for jump from
+ * 	@param direction Direction of leap
+ * 	@return Target coordinates for a leap in given direction
+*/
 	private Coordinate getLeaps(Coordinate start, Direction direction) {
 		//Initialise search for first non-water square
 		int row = start.row();
@@ -412,23 +392,19 @@ public class Game {
             			//Move one more square right to reach the first non-water square
 				col++;
             			break;
+
+			//Default is impossible to reach
+			default NULL:
+				return null;	
 		}
 
 		return new Coordinate(row, col);
 	}
-
-	public Player getPlayer(int playerNumber) {
-		if(playerNumber == 0 || playerNumber == 1) {	
-			return players[playerNumber];
-		}
-		throw new IllegalArgumentException();
-	}
 	
 	private boolean gameOver = false;
 	private Player winner;
-
 /**
- * 	Checks if game has been won and assigns winner if it has
+ * 	checkVictory: Checks if game has been won and assigns winner if it has.
  * 	Win conditions: player.hasCapturedDen() is true OR player is only remaining player with pieces
 */	
 	private void checkVictory() {
@@ -446,18 +422,18 @@ public class Game {
 		
 
 		//End the game and declare remaining player winner
-		if(alivePlayers.size() == 1) {
+		if (alivePlayers.size() == 1) {
 			this.setWinner(alivePlayers.get(0));				
-		} else if(capturedDens.size() == 1) {
+		} else if (capturedDens.size() == 1) {
 			this.setWinner(capturedDens.get(0));				
 		//or restart game	
-		} else if(this.isGameOver() == true) {
+		} else if (this.isGameOver()) {
 			this.restartGame();			
 		}
 		//or do nothing	
 	}
 /**
- * 	Getter and setters regarding victory conditions
+ * 	Getter and setters regarding victory conditions.
 */
 	public boolean isGameOver() {
 		return gameOver;
