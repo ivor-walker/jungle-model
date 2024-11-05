@@ -92,7 +92,8 @@ public class Piece {
  * Check if piece is currently trapped
 */	
 	private void checkTrap(Square toSquare) {
-		if(toSquare.isTrap()) {
+		//Check if target is enemy's trap
+		if(toSquare.isTrap() && (toSquare.getOwner().getPlayerNumber() != this.getOwner().getPlayerNumber())) {
 			this.trap();
 		}
 	}

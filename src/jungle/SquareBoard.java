@@ -38,7 +38,7 @@ public class SquareBoard extends Grid<Square> {
 	private int COL_TRAP_PADDING = 1;
 	private void addTrapsAndDen(Player player) {
 		//Get column location of home	
-		int[] targetCols = getSequence(DEN_COL - ROW_TRAP_PADDING, DEN_COL + COL_TRAP_PADDING);
+		int[] targetCols = getSequence(DEN_COL - ROW_TRAP_PADDING, DEN_COL + COL_TRAP_PADDING + 1);
 		int[] targetRows;
 	
 		//Get player number specific things	
@@ -50,20 +50,22 @@ public class SquareBoard extends Grid<Square> {
 		if(player.getPlayerNumber() == 0){
 			//Den at top row
 			denRow = 0;
-			targetRows = getSequence(denRow + ROW_TRAP_PADDING);
+			targetRows = getSequence(denRow + ROW_TRAP_PADDING + 1);
 			//Corners at bottom left and right	
 			leftCorner = new Coordinate(denRow + ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
 			rightCorner = new Coordinate(denRow + ROW_TRAP_PADDING, DEN_COL + COL_TRAP_PADDING);
 
 
 		//Player 1 case 
-		} else {
+		} else if(player.getPlayerNumber() == 1){
 			//Den at bottom row
 			denRow = getHeight() - 1;
-			targetRows = getSequence(denRow - ROW_TRAP_PADDING, denRow);
+			targetRows = getSequence(denRow - ROW_TRAP_PADDING, denRow+1);
 			//Corners at top left and right	
 			leftCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL - COL_TRAP_PADDING);
 			rightCorner = new Coordinate(denRow - ROW_TRAP_PADDING, DEN_COL + COL_TRAP_PADDING);
+		} else {
+			throw new IllegalArgumentException();
 		}
 	
 		//Set a full rectangle of traps
@@ -73,6 +75,6 @@ public class SquareBoard extends Grid<Square> {
 		this.setGridLocation(denCoordinate, new Den(player));
 		//Remove corners
 		this.setGridLocation(leftCorner, new PlainSquare());
-		this.setGridLocation(rightCorner, new PlainSquare());	
+		this.setGridLocation(rightCorner, new PlainSquare());
 	}
 }

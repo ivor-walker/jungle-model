@@ -101,10 +101,10 @@ public class Game {
 	    this.addPiece(8, 0, 6, 1);
 	    this.addPiece(7, 5, 3, 1);
 	    this.addPiece(7, 1, 2, 1);
-	    this.addPiece(6, 6, 8, 1);
-	    this.addPiece(6, 2, 5, 1);
-	    this.addPiece(6, 4, 4, 1);
-	    this.addPiece(6, 0, 1, 1);
+	    this.addPiece(6, 6, 1, 1);
+	    this.addPiece(6, 2, 4, 1);
+	    this.addPiece(6, 4, 5, 1);
+	    this.addPiece(6, 0, 8, 1);
 	}
 
 	public Piece getPiece(int row, int col) {
@@ -213,10 +213,8 @@ public class Game {
 			boolean exclude = false;
 			
 			//Pieces on the square of the attempted move	
-			boolean targetPiecePresent = targetPiece != null;
-			if(targetPiecePresent) {
+			if(targetPiece != null) {
 				boolean isEnemyPiece = (targetPiece.getOwner().getPlayerNumber() == lastMoved);
-
 				if(!isEnemyPiece) {
 					exclude = true;
 				} else if(isEnemyPiece && !startingPiece.canDefeat(targetPiece)) {
