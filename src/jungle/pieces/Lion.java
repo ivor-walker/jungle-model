@@ -2,6 +2,11 @@ package jungle.pieces;
 import jungle.Player;
 import jungle.squares.Square;
 
+/**
+ * Special piece lion
+ * Has rank 7, can leap both directions
+*/
+
 public class Lion extends Piece {
 	//Has rank 7
 	private static int LION_RANK = 7;

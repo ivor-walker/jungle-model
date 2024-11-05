@@ -8,17 +8,14 @@ import java.util.Objects;
 public class Coordinate {
 	private int x;
 	private int y;
-	private static int HEIGHT_LIMIT = 9;
-	private static int WIDTH_LIMIT = 7;	
+	private int heightLimit;
+	private int widthLimit;
 /**
  *	Constructor
  *	@param row x coordinate 
  *	@param column y of coordinate
 */
 	public Coordinate(int row, int col) {
-		if(row < 0 || col < 0 || row >= HEIGHT_LIMIT || col >= WIDTH_LIMIT){
-			throw new IndexOutOfBoundsException();	
-		}
 		this.x = row;
 		this.y = col;	
 	}
@@ -49,4 +46,8 @@ public class Coordinate {
 	public int hashCode() {
 		return Objects.hash(x, y);
 	}
+
+/**
+ * 	Sets limits for coordinates
+*/
 }

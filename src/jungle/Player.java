@@ -50,7 +50,6 @@ public class Player {
 
 /**
  *	Adder for pieceCount
- *	Note that pieces themselves are owned by Game, so this adds int count only	
 */ 
 	public void gainOnePiece() {
 		pieceCount++;
@@ -58,7 +57,6 @@ public class Player {
 
 /**
  *	Subtractor for pieceCount
- *	Note that pieces themselves are owned by Game, so this subtracts int count only	
 */ 
 	public void loseOnePiece() {
 		pieceCount--;

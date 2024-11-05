@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.Objects;
 
 /**
  * Game: Grid representation of pieces
@@ -90,8 +91,8 @@ public class Game {
 	    this.addPiece(1, 5, 2, 0); 
 	    this.addPiece(1, 1, 3, 0); 
 	    this.addPiece(2, 0, 1, 0); 
-	    this.addPiece(2, 4, 5, 0); 
-	    this.addPiece(2, 2, 4, 0); 
+	    this.addPiece(2, 4, 4, 0); 
+	    this.addPiece(2, 2, 5, 0); 
 	    this.addPiece(2, 6, 8, 0); 
 	
 	    // Player 1 pieces
@@ -118,11 +119,6 @@ public class Game {
 	public void move(int fromRow, int fromCol, int toRow, int toCol){
 		//Check if correct player is moving	
 		Piece fromPiece = this.getPiece(fromRow, fromCol);
-		assert fromPiece.getRank() == 0;	
-		int movingPlayerNumber = getOwner(fromPiece).getPlayerNumber();
-		if(movingPlayerNumber != lastMoved){
-			throw new IllegalMoveException();
-		}
 		
 		Coordinate toLocation = new Coordinate(toRow, toCol);
 		//Check if move is legal
@@ -149,20 +145,29 @@ public class Game {
 		fromPiece.move(toSquare);
 
 		//End of turn logic
-		lastMoved = movingPlayerNumber;
-		this.checkVictory(toSquare);
+		lastMoved = fromPiece.getOwner().getPlayerNumber();
+		this.checkVictory();
 	}
 	
 	public List<Coordinate> getLegalMoves(int row, int col){
 		//If game is over, no legal moves	
-		if(gameOver) {	
+		if(this.gameOver) {	
 			return Collections.emptyList();	
+		}
+		
+		Piece startingPiece = this.getPiece(row, col);
+		if(startingPiece == null) {
+			return Collections.emptyList();
+		}
+
+		int movingPlayerNumber = startingPiece.getOwner().getPlayerNumber();
+		if(movingPlayerNumber == lastMoved){
+			return Collections.emptyList();
 		}
 
 		Coordinate startingLocation = new Coordinate(row, col);	
 		//Guaranteed all structurally possible moves 		
 		List<Coordinate> legalMoves = getNextNodes(startingLocation);
-		Piece startingPiece = this.getPiece(row, col);
 		Square startingSquare = this.getSquare(row, col);
 		
 		//Add leaps	
@@ -177,11 +182,12 @@ public class Game {
 		List<Coordinate> illegalMoves = this.getIllegalMoves(startingPiece, startingSquare, legalMoves);
 
 		//Remove rule breaking moves
-				
 		legalMoves.removeAll(illegalMoves);
 		
 		return legalMoves; 
 	}
+	
+		
 /**
  * 	Get all possible illegal moves, to be removed in getLegalMoves
  *	@param startingPiece piece to be moved
@@ -193,16 +199,15 @@ public class Game {
 		List<Coordinate> excludedMoves = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
 			Piece targetPiece = getPiece(move.row(), move.col());
-			Square targetSquare = board.getGridLocation(move);
+			Square targetSquare = this.getSquare(move.row(), move.col());
 						
 			boolean exclude = false;
 			while(exclude == false){	
 				//Pieces on the square of the attempted move	
 				boolean targetPiecePresent = targetPiece != null;
-				boolean targetPieceEnemy = getOwner(targetPiece).getPlayerNumber() == lastMoved;
-				boolean targetPieceDefeatable = startingPiece.canDefeat(targetPiece);
-				exclude = strongerPieces(targetPiecePresent, targetPieceEnemy, targetPieceDefeatable);
-				exclude = alliedPieces(targetPiecePresent, !targetPieceEnemy);
+				boolean targetPieceEnemy = targetPiecePresent && targetPiece.getOwner().getPlayerNumber() == lastMoved;
+				exclude = targetPieceEnemy && !startingPiece.canDefeat(targetPiece);
+				exclude = !targetPieceEnemy; 
 				
 				//Swimming
 				boolean attemptingSwim = targetSquare.isWater();	
@@ -218,79 +223,91 @@ public class Game {
 		
 		return excludedMoves;
 	}	
-
-	private boolean strongerPieces(boolean targetPiecePresent, boolean targetPieceEnemy, boolean targetPieceDefeatable) {
-		return targetPiecePresent && (targetPieceEnemy && !targetPieceDefeatable);
-	}
-	
-	private boolean alliedPieces(boolean targetPiecePresent, boolean targetPieceAllied) { 
-		return targetPiecePresent && targetPieceAllied;
-	}
 	
 /**
  *	Gets all legal moves from a given point	
  *	Breadth-first traversal of grid enables custom move ranges and step sizes	
 */
 	private int MOVE_RANGE = 1;
-	private int STEP_SIZE = 1;
 	private List<Coordinate> getNextNodes(Coordinate startingNode) {
 		int currentBudget = MOVE_RANGE;
 		List<Coordinate> affordableNodes = new ArrayList<>();
 		//History is a set to avoid duplicates	
 		Set<Coordinate> history = new HashSet<>();
-	
 		List<Coordinate> queueNodes = new ArrayList<>();
+		
 		queueNodes.add(startingNode);
+		history.add(startingNode);
 	
-		while(currentBudget > 0){
+		while(currentBudget > 0 && !queueNodes.isEmpty()){
 			List<Coordinate> toBeQueued = new ArrayList<>();	
 			//Traverse all nodes in queue	
 			for(Coordinate node: queueNodes){
-				//Add queue to affordable nodes
-				affordableNodes.add(node);
-
-				//Find all possible neighbours	
-				List<Coordinate> neighbours = Arrays.asList(
-					checkIfValidNode(node.row() - STEP_SIZE, node.col()),
-					checkIfValidNode(node.row() + STEP_SIZE, node.col()),
-					checkIfValidNode(node.row(), node.col() - STEP_SIZE),
-					checkIfValidNode(node.row(), node.col() + STEP_SIZE)
-				);
+				//Get neighbours	
+				List<Coordinate> neighbours = this.traverse(node);
 				
-				//Process each neighbour
-				for(Coordinate neighbour: neighbours) {
-					//If neighbour is valid and hasn't been traversed before
-					if(neighbour!=null && !history.contains(neighbour)){
-						//Add to be traversed
-						toBeQueued.add(neighbour);
-						//Ensure node can't be retraversed
-						history.add(neighbour);
-					}
-				}
+				neighbours = neighbours.stream()
+					//Remove invalid nodes	
+					.filter(Objects::nonNull)
+					//Remove already traversed	
+					.filter(neighbour -> !history.contains(neighbour))
+					.toList();
+				
+				//Update
+				affordableNodes.addAll(neighbours);
+				toBeQueued.addAll(neighbours);
+				history.addAll(neighbours);
 			}
+
 			//Update queue	
 			queueNodes = toBeQueued;	
 			//Decrease budget	
 			currentBudget-=STEP_SIZE;
-		}
-
+						}
+		//Remove origin node
+		affordableNodes.remove(startingNode);
+		
+		
 		return affordableNodes;	
 	}
 
+/**
+ * 	Helper methods for traversal
+*/
+
+/**
+ * 	Checks if node is valid 
+*/
 	private Coordinate checkIfValidNode(int row, int col) {
 		try {
-			return new Coordinate(row, col);
+			Coordinate targetLocation = new Coordinate(row, col);
+			//using SquareBoard's testBounds method, inherited from Grid	
+			board.testBounds(targetLocation);
+			return targetLocation;	
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
+/**
+ * 	Lists nearest neighbours of node
+*/	
+	private int STEP_SIZE = 1;
+	private List<Coordinate> traverse(Coordinate node) {
+		return Arrays.asList(
+			checkIfValidNode(node.row() - STEP_SIZE, node.col()),
+			checkIfValidNode(node.row() + STEP_SIZE, node.col()),
+			checkIfValidNode(node.row(), node.col() - STEP_SIZE),
+			checkIfValidNode(node.row(), node.col() + STEP_SIZE)
+		);
 
-	
-
+	}
+/**
+ * Leaps
+*/
 	private List<Coordinate> getLeaps(Piece startingPiece, Coordinate startingLocation, List<Coordinate>legalMoves, boolean isVertical) {
 		List<Coordinate> leaps = new ArrayList<>();
 		for(Coordinate move: legalMoves) {
-			Square targetSquare = board.getGridLocation(move);
+			Square targetSquare = this.getSquare(move.row(), move.col());
  
 			//If proposed square is water 
 			if(targetSquare.isWater()) {
@@ -371,14 +388,6 @@ public class Game {
 		return new Coordinate(row, col);
 	}
 
-
-	private Player getOwner(Piece piece) {
-		return Arrays.stream(players)
-			.filter(player -> piece.isOwnedBy(player))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException());
-	}
-	
 	public Player getPlayer(int playerNumber) {
 		if(playerNumber == 0 || playerNumber == 1) {	
 			return players[playerNumber];
@@ -389,21 +398,32 @@ public class Game {
 	private boolean gameOver = false;
 	private Player winner;
 
-	//TODO fix	
-	private void checkVictory(Square winningTarget) {
+/**
+ * 	Checks if game has been won and assigns winner if it has
+ * 	Win conditions: player.hasCapturedDen() is true OR player is only remaining player with pieces
+*/	
+	private void checkVictory() {
 		//Get all players with pieces	
 		List<Player> alivePlayers = Arrays
 			.stream(players)
 			.filter(Player::hasPieces)
 			.collect(Collectors.toList());
-		//If den is a legal move or if there's only one player left with pieces
-		if(winningTarget.isDen() || alivePlayers.size() == 1) {
+		
+		List<Player> capturedDens = Arrays
+			.stream(players)
+			.filter(Player::hasCapturedDen)
+			.collect(Collectors.toList());
+	
+		if(capturedDens.size() == 1) {
 			//End the game and declare remaining player winner
-			this.endGame();
 			this.setWinner(alivePlayers.get(0));				
+		} else if(capturedDens.size() == 1) {
+			this.setWinner(capturedDens.get(0));				
 		}	
 	}
-
+/**
+ * 	Getter and setters regarding victory conditions
+*/
 	public boolean isGameOver() {
 		return gameOver;
 	}
@@ -417,6 +437,7 @@ public class Game {
 	}
 
 	private void setWinner(Player player) {
+		this.endGame();
 		this.winner = player;	
 	}	
 }
