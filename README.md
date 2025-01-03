@@ -6,7 +6,6 @@ This project is a Java-based implementation of the Jungle board game, a two-play
 
 This project is the model only, it does not include a user interface or a main method.
 
----
 
 ## Features
 
@@ -28,7 +27,6 @@ This project is the model only, it does not include a user interface or a main m
 
 ![UML diagram of implementation](uml-diagram.png)
 
----
 
 ## Setup and Execution
 
